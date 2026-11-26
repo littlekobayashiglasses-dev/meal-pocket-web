@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#111111"><title>今天吃什麼｜口袋名單</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:#263a35;background:#f4f7f4;font-synthesis:none}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid #e1a848;outline-offset:2px}header{background:#214d44;color:white;padding:22px 24px}header .top{max-width:1120px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:12px}.logo{width:40px;height:40px;display:grid;place-items:center;background:#d5e4c9;color:#214d44;border-radius:13px;font-size:22px}.brand strong{font-size:19px;letter-spacing:.04em}.brand small{display:block;color:#c2d7cf;font-size:12px;letter-spacing:.12em;margin-top:2px}.top-actions{display:flex;gap:8px;align-items:center}.ghost{background:transparent;color:white;border:1px solid #76958a;border-radius:9px;padding:9px 13px;font-size:14px}.ghost:hover{background:#315e53}main{max-width:1120px;margin:0 auto;padding:43px 24px 80px}.eyebrow{font-size:13px;letter-spacing:.16em;color:#63847a;font-weight:700;margin:0 0 10px}.heading{display:flex;align-items:end;justify-content:space-between;gap:24px}.heading h1{font-size:clamp(29px,5vw,43px);letter-spacing:-.04em;line-height:1.2;margin:0 0 10px}.heading p{margin:0;color:#6b7d75;line-height:1.7}.primary{border:0;background:#e9b955;color:#263a35;border-radius:11px;padding:13px 20px;font-weight:750;white-space:nowrap}.primary:hover{background:#f2c96f}.overview{display:flex;gap:12px;margin:28px 0 27px;flex-wrap:wrap}.overview div{background:#e7efea;border-radius:10px;padding:10px 15px;font-size:14px;color:#4e695d}.overview b{color:#214d44;font-size:17px;margin-right:5px}.layout{display:grid;grid-template-columns:244px 1fr;gap:24px;align-items:start}.panel{background:white;border:1px solid #e1e9e3;border-radius:16px;box-shadow:0 4px 16px #31534208}.filters{padding:22px}.section-label{font-weight:750;margin:0 0 15px}.group{padding:18px 0;border-top:1px solid #edf1ee}.group:last-child{padding-bottom:0}.group-title{display:block;font-size:13px;font-weight:700;color:#72877d;margin-bottom:10px}.place-btn{display:block;width:100%;border:0;border-radius:9px;text-align:left;background:transparent;padding:10px 11px;color:#53685e;font-size:14px}.place-btn:hover{background:#f1f6f2}.place-btn.active{background:#e4f0e8;color:#275746;font-weight:750}.segment{display:flex;gap:6px;flex-wrap:wrap}.pill{border:1px solid #dce6df;border-radius:8px;background:white;padding:8px 10px;font-size:14px;color:#5a7064}.pill.active{border-color:#2c6554;background:#e7f2e9;color:#285a49;font-weight:700}.filters select{width:100%}.content{min-width:0}.searchrow{display:flex;gap:10px;margin-bottom:16px}.search-wrap{position:relative;flex:1}.search-wrap span{position:absolute;left:15px;top:12px;color:#82958b}.field,select,textarea{width:100%;border:1px solid #dce6df;background:white;border-radius:10px;padding:11px 12px;color:#263a35;min-height:45px}.search-wrap input{padding-left:40px}.search-wrap input::placeholder{color:#a1afa7}.resulthead{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 13px}.resulthead h2{font-size:17px;margin:0}.resulthead span{font-size:14px;color:#879990}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{padding:20px;display:flex;flex-direction:column;min-height:220px}.card-head{display:flex;gap:12px;justify-content:space-between}.card h3{font-size:19px;margin:0 0 5px;overflow-wrap:anywhere}.location{font-size:13px;color:#71877b}.favorite{border:0;background:transparent;color:#b6c4ba;font-size:25px;line-height:1;padding:0 3px}.favorite.on{color:#d7a638}.tags{display:flex;flex-wrap:wrap;gap:7px;margin:17px 0 12px}.tag{font-size:13px;border-radius:6px;background:#eff4ef;padding:5px 8px;color:#526e5d}.tag.meal{background:#fff1d9;color:#8a662a}.detail{font-size:14px;color:#6a7e72;line-height:1.6;margin:3px 0;white-space:pre-wrap;overflow-wrap:anywhere}.card-actions{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:17px}.card-actions a,.linkbtn{font-size:14px;font-weight:700;text-decoration:none;color:#316850;background:none;border:0;padding:0}.linkbtn.muted{color:#84948a;font-weight:500}.card-actions .spacer{flex:1}.empty{grid-column:1/-1;text-align:center;padding:60px 22px;background:white;border:1px dashed #cbdcd0;border-radius:16px}.empty-icon{display:grid;place-items:center;width:62px;height:62px;background:#edf4ea;border-radius:22px;margin:0 auto 18px;font-size:28px}.empty h3{margin:0 0 8px;font-size:19px}.empty p{margin:0 auto 18px;line-height:1.7;color:#7a8d80;font-size:14px}.footnote{margin-top:24px;color:#83958a;font-size:13px;line-height:1.7}.footnote strong{color:#5b7669}dialog{border:0;border-radius:18px;padding:0;max-width:620px;width:calc(100% - 30px);max-height:90vh;box-shadow:0 20px 80px #12291d40}dialog::backdrop{background:#132b22a8}.dialog-head{display:flex;align-items:center;justify-content:space-between;padding:23px 25px 16px;border-bottom:1px solid #ebf0ec}.dialog-head h2{margin:0;font-size:21px}.close{border:0;background:#edf3ee;border-radius:8px;width:36px;height:36px;font-size:22px;color:#537061}.formbody{padding:20px 25px 25px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:17px}.formgroup label,.formlabel{display:block;font-size:14px;font-weight:700;margin-bottom:7px}.formgroup.full{grid-column:1/-1}.hint{font-size:12px;color:#82958b;font-weight:400}.checkrow{display:flex;gap:20px;align-items:center;min-height:42px}.checkrow label{font-weight:400;display:flex;gap:7px;align-items:center;margin:0}.checkrow input{width:17px;height:17px;accent-color:#316850}textarea{resize:vertical;min-height:75px}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:23px}.secondary{border:1px solid #d7e2d9;background:white;border-radius:10px;padding:11px 16px;color:#566e60}.error{color:#b83c37;font-size:14px;margin:10px 0 0;min-height:0}.add-place{font-size:13px;background:none;border:0;color:#39755c;padding:8px 0 0}.mobile-add{display:none}@media(max-width:720px){header{padding:17px}.brand strong{font-size:17px}.brand small{font-size:11px}.top-actions .ghost{font-size:12px;padding:8px}.top-actions{gap:5px}main{padding:32px 16px 60px}.heading{align-items:flex-start}.heading h1{font-size:31px}.heading>.primary{display:none}.overview{margin:22px 0}.layout{grid-template-columns:1fr;gap:16px}.filters{padding:17px}.filters .section-label{margin-bottom:10px}.group{padding:12px 0}.place-list{display:flex;gap:6px;overflow:auto}.place-btn{width:auto;white-space:nowrap;border:1px solid #e4ece5}.cards{grid-template-columns:1fr}.mobile-add{display:block}.formgrid{grid-template-columns:1fr}.formgroup.full{grid-column:auto}.formbody{padding:18px}.searchrow{align-items:stretch}.searchrow .primary{padding:9px 13px}.footnote{font-size:12px}}@media(max-width:390px){.brand small{display:none}.brand strong{font-size:15px}.logo{width:34px;height:34px}.top-actions .ghost{padding:7px;font-size:12px}}
+
+/* 黑、藍與橙黃：依使用者指定色碼 */
+:root{color:#161616;background:#f4f5f8}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline-color:#daa000}
+header{background:#111;color:#fff;border-bottom:4px solid #daa000}
+.logo{background:#daa000;color:#111}
+.brand small{color:#c5c5d3}
+.ghost{border-color:#777b89;color:#fff}
+.ghost:hover{background:#282839}
+.eyebrow{color:#000daa}
+.heading p{color:#555761}
+.primary{background:#000daa;color:#fff}
+.primary:hover{background:#111b85}
+.overview div{background:#e8eaf6;color:#303345}
+.overview b{color:#000daa}
+.panel{background:#fff;border-color:#dfe0e8;box-shadow:0 4px 16px #15152e0a}
+.group{border-color:#e8e8ee}
+.group-title{color:#565965}
+.place-btn{color:#373943}
+.place-btn:hover{background:#eff0fa}
+.place-btn.active{background:#000daa;color:#fff}
+.pill{border-color:#d5d6df;color:#363842}
+.pill.active{border-color:#000daa;background:#000daa;color:#fff}
+.search-wrap span{color:#676a76}
+.field,select,textarea{border-color:#d5d6df;color:#161616}
+.search-wrap input::placeholder{color:#6c6e79}
+.resulthead span{color:#5c5e69}
+.location{color:#565965}
+.favorite{color:#767985}
+.favorite.on{color:#9a7000}
+.tag{background:#edeef8;color:#252a75}
+.tag.meal{background:#fff1c8;color:#5b4300}
+.detail{color:#555761}
+.card-actions a,.linkbtn,.add-place{color:#000daa}
+.linkbtn.muted{color:#555761}
+.empty{border-color:#bfc2d6}
+.empty-icon{background:#fff1c8}
+.empty p{color:#555761}
+.footnote{color:#555761}
+.footnote strong{color:#20212a}
+dialog{color:#161616;box-shadow:0 20px 80px #00000050}
+dialog::backdrop{background:#090919b8}
+.dialog-head{border-color:#e7e7ed}
+.close{background:#ededf4;color:#343648}
+.hint{color:#62646e}
+.checkrow input{accent-color:#000daa}
+.secondary{border-color:#c5c7d2;color:#2d3040}
+.secondary:hover{background:#f0f1fa}
+.error{color:#a92620}
+.rating{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:4px 0 0}.rating-label{font-size:14px;color:#565965;margin-right:2px}.rating-btn{border:1px solid #d5d6df;border-radius:8px;background:white;padding:6px 9px;color:#363842;font-size:14px}.rating-btn[aria-pressed="true"]{border-color:#000daa;background:#000daa;color:white}.rating-btn:hover:not([aria-pressed="true"]){background:#eff0fa}
+@media(max-width:720px){.place-btn{border-color:#d6d8e4}.place-btn.active{border-color:#000daa}}
+/* Visual polish for the restaurant pocket list. Append after existing styles. */
+:root{--ink:#14141b;--muted:#555867;--brand-blue:#000daa;--brand-gold:#daa000;--paper:#f5f6fa;color:var(--ink);background:var(--paper)}
+body{background:var(--paper);font-size:16px;line-height:1.55}
+header{padding:18px 24px;background:#101013;border-bottom:0}
+header .top{max-width:1200px}
+.logo{width:42px;height:42px;border-radius:50%;background:var(--brand-gold);font-size:23px}
+.brand strong{font-size:19px;letter-spacing:.05em}
+.brand small{color:#c9c9d0;font-size:11px;letter-spacing:.13em}
+.top-actions{gap:10px}
+.ghost{min-height:40px;padding:9px 14px;border-color:#696976;border-radius:999px;font-size:14px;font-weight:600}
+.ghost:hover{border-color:#e4e4eb;background:#292931}
+main{max-width:1200px;padding:30px 24px 80px}
+.heading{position:relative;overflow:hidden;min-height:192px;padding:34px 38px;border-radius:22px;background:radial-gradient(circle at 97% -65%,#222db9 0%,transparent 45%),#15151c;color:white;align-items:end}
+.heading::after{content:'';position:absolute;width:160px;height:160px;right:20%;top:-112px;border:1px solid #daa00088;border-radius:50%;pointer-events:none}
+.heading>*{position:relative;z-index:1}
+.heading .eyebrow{margin-bottom:13px;color:#ffce48;font-size:12px;font-weight:750;letter-spacing:.16em}
+.heading h1{margin-bottom:10px;color:#fff;font-size:clamp(30px,4.2vw,46px);line-height:1.2;letter-spacing:-.035em}
+.heading p{color:#d8d8df;font-size:16px}
+.primary{min-height:46px;padding:12px 19px;border-radius:11px;background:var(--brand-blue);color:#fff;box-shadow:0 5px 14px #000daa26;transition:background .15s ease,box-shadow .15s ease}
+.primary:hover{background:#101d8a;box-shadow:0 7px 18px #000daa33}
+.heading>.primary{background:#fff;color:#111;box-shadow:none}
+.heading>.primary:hover{background:#f5d36e}
+.overview{gap:10px;margin:18px 0 26px}
+.overview div{padding:10px 16px;border:1px solid #e1e2e9;border-radius:11px;background:#fff;color:#50515e;font-size:14px}
+.overview b{color:var(--brand-blue);font-size:18px}
+.layout{grid-template-columns:260px minmax(0,1fr);gap:24px}
+.panel{border:1px solid #e2e3e9;border-radius:17px;background:#fff;box-shadow:0 5px 22px #191a2c09}
+.filters{padding:24px}
+.section-label{margin-bottom:16px;font-size:19px;letter-spacing:-.02em}
+.group{padding:19px 0;border-color:#e8e9ef}
+.group-title{margin-bottom:10px;color:#555867;font-size:14px}
+.place-list{display:grid;gap:5px}
+.place-btn{min-height:43px;padding:10px 12px;border:1px solid transparent;border-radius:10px;color:#343641;font-size:15px}
+.place-btn:hover{background:#f0f1fc}
+.place-btn.active{border-color:var(--brand-blue);background:var(--brand-blue);color:#fff}
+.add-place{min-height:40px;padding-top:8px;font-size:14px;font-weight:700}
+.segment{gap:7px}
+.pill{min-height:40px;padding:8px 12px;border:1px solid #d8d9e2;border-radius:999px;color:#393a47;font-size:14px}
+.pill.active{border-color:var(--brand-blue);background:var(--brand-blue);color:#fff}
+.field,select,textarea{min-height:48px;border-color:#d8d9e2;border-radius:11px;background-color:#fff;font-size:16px}
+.field:hover,select:hover,textarea:hover{border-color:#a9aab7}
+select{appearance:none;padding-right:36px;background-image:linear-gradient(45deg,transparent 50%,#4c4d5b 50%),linear-gradient(135deg,#4c4d5b 50%,transparent 50%);background-position:calc(100% - 19px) 52%,calc(100% - 14px) 52%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.searchrow{margin-bottom:20px}
+.search-wrap input{min-height:55px;padding-left:47px;border-color:#e1e2ea;border-radius:15px;box-shadow:0 5px 20px #191a2c09}
+.search-wrap span{left:17px;top:12px;color:var(--brand-blue);font-size:21px}
+.resulthead{margin:24px 2px 14px}
+.resulthead h2{font-size:19px;letter-spacing:-.02em}
+.resulthead span{color:#5c5e6b}
+.cards{gap:16px}
+.card{position:relative;min-height:250px;padding:22px;overflow:hidden;transition:box-shadow .15s ease,border-color .15s ease}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--brand-gold)}
+.card:hover{border-color:#c6c9dc;box-shadow:0 10px 28px #171a3712}
+.card h3{font-size:20px;line-height:1.35;letter-spacing:-.01em}
+.location{margin-top:5px;color:#60616f;font-size:14px}
+.favorite{display:grid;place-items:center;width:38px;height:38px;border:1px solid #e1e2e9;border-radius:50%;color:#656875}
+.favorite.on{border-color:#e2c25c;background:#fff4cd;color:#8b6500}
+.tags{gap:7px;margin:19px 0 15px}
+.tag{padding:5px 9px;border-radius:8px;font-size:13px;font-weight:650}
+.tag.meal{background:#fff1c3;color:#664a00}
+.detail{color:#555867;font-size:14px}
+.rating{gap:7px;margin:9px 0 0}
+.rating-label{color:#555867;font-size:14px}
+.rating-btn{min-height:36px;padding:6px 10px;border-radius:9px;font-size:14px}
+.card-actions{gap:14px;margin-top:auto;padding-top:18px}
+.card-actions a,.linkbtn{min-height:36px;display:inline-flex;align-items:center;font-size:14px}
+.empty{min-height:270px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;border:1px dashed #c4c7d6;border-radius:18px;background:#fff}
+.empty-icon{width:68px;height:68px;margin-bottom:18px;border-radius:50%;background:#fff1c3}
+.empty h3{margin-bottom:8px;font-size:20px}
+.empty p{color:#595b68;font-size:15px}
+.footnote{color:#60616c;font-size:13px}
+dialog{border-radius:20px}
+.dialog-head{padding:23px 25px 18px}
+.formbody{padding:22px 25px 26px}
+.formgroup label,.formlabel{font-size:14px}
+.checkrow{flex-wrap:wrap}
+.secondary{min-height:44px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid #daa000;outline-offset:3px}
+@media(max-width:720px){header{padding:15px 16px}header .top{gap:10px}.brand strong{font-size:16px}.logo{width:36px;height:36px;font-size:20px}.top-actions{gap:6px}.top-actions .ghost{min-height:38px;padding:7px 10px;font-size:13px}main{padding:18px 16px 56px}.heading{min-height:164px;padding:26px 24px;border-radius:18px}.heading h1{font-size:clamp(27px,7vw,35px)}.heading p{font-size:15px}.heading .eyebrow{font-size:11px}.heading::after{right:-40px}.overview{margin:14px 0 20px}.overview div{padding:8px 12px}.layout{grid-template-columns:minmax(0,1fr);gap:16px}.filters{padding:19px}.filters .section-label{margin-bottom:10px}.group{padding:13px 0}.place-list{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px}.place-btn{flex:0 0 auto;width:auto;border:1px solid #d9dbe7;border-radius:999px}.place-btn.active{border-color:var(--brand-blue)}.searchrow{gap:8px}.searchrow .primary{min-height:52px;padding:10px 14px}.cards{grid-template-columns:minmax(0,1fr)}.card{min-height:220px;padding:20px}.formbody{padding:18px}.footnote{font-size:13px}}
+@media(max-width:390px){.brand{gap:8px}.brand strong{font-size:15px}.top-actions .ghost{padding:6px 8px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}
+
+
+/* Keep all four meal options on one row at desktop and mobile widths. */
+#mealFilters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+#mealFilters .pill{min-width:0;padding-inline:2px;white-space:nowrap}
+
+/* 餐別時鐘：由左至右從早到晚，所有選項皆可用鍵盤操作。 */
+#mealFilters.meal-filter{display:flex;flex-direction:column;align-items:center;gap:5px}
+.meal-clock{position:relative;width:100%;max-width:242px;height:150px;isolation:isolate}
+.clock-arc{position:absolute;left:14%;right:14%;bottom:28px;height:76px;border:1px solid #d8dbed;border-bottom:0;border-radius:130px 130px 0 0;background:linear-gradient(180deg,#f5f6ff,#fff);z-index:0}
+.clock-horizon{position:absolute;left:13%;right:13%;bottom:28px;height:1px;background:#d8dbed}
+.clock-option{position:absolute;z-index:2;width:47px;min-height:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;padding:3px 1px;border:0;border-radius:12px;background:transparent;color:#626575;font-size:13px;font-weight:650;line-height:1.15;transform:translate(-50%,-50%)}
+.clock-option:hover{background:#eef0ff;color:#000daa}.clock-option.active{color:#000daa}.clock-option.active .clock-icon{background:#000daa;color:#fff;box-shadow:0 3px 10px #000daa2a}
+.clock-icon{width:30px;height:30px;padding:5px;border-radius:50%;background:#fff;color:#747789;transition:background .2s,color .2s,box-shadow .2s}
+.clock-breakfast{left:10%;top:61%}.clock-lunch{left:34%;top:22%}.clock-dinner{left:66%;top:22%}.clock-night{left:90%;top:61%}
+.clock-needle{position:absolute;left:calc(50% - 2px);bottom:29px;width:4px;height:62px;background:#daa000;border-radius:4px;z-index:1;transform-origin:50% 100%;transform:rotate(0deg);opacity:.26;transition:transform .3s ease,opacity .2s ease}
+.meal-clock[data-selected="早餐"] .clock-needle{transform:rotate(-68deg);opacity:1}.meal-clock[data-selected="午餐"] .clock-needle{transform:rotate(-27deg);opacity:1}.meal-clock[data-selected="晚餐"] .clock-needle{transform:rotate(27deg);opacity:1}.meal-clock[data-selected="宵夜"] .clock-needle{transform:rotate(68deg);opacity:1}
+.clock-hub{position:absolute;left:50%;bottom:23px;width:13px;height:13px;background:#daa000;border:3px solid white;box-shadow:0 0 0 1px #daa000;border-radius:50%;z-index:2;transform:translateX(-50%)}
+.clock-all{min-height:34px;padding:6px 14px;border:1px solid #d8d9e2;border-radius:999px;background:#fff;color:#424555;font-size:14px;font-weight:650}.clock-all:hover{background:#eff0fa}.clock-all.active{border-color:#000daa;color:#fff;background:#000daa}
+/* The sky inside the dial follows the selected meal, from dawn to night. */
+.meal-clock[data-selected="全部"] .clock-arc{background:linear-gradient(90deg,#ffb66e 0%,#ffe0bc 18%,#bceaff 36%,#9ed9fc 50%,#a897d8 75%,#182d65 100%);border-color:#aabed8}
+.meal-clock[data-selected="早餐"] .clock-arc{background:linear-gradient(155deg,#ffb66e 0%,#ffe0bc 38%,#bceaff 100%);border-color:#e2c7b6}
+.meal-clock[data-selected="午餐"] .clock-arc{background:linear-gradient(180deg,#9ed9fc 0%,#d8f3ff 100%);border-color:#9dcfe9}
+.meal-clock[data-selected="晚餐"] .clock-arc{background:linear-gradient(155deg,#d6f1ff 0%,#bdd8f6 38%,#a897d8 100%);border-color:#b4b7d9}
+.meal-clock[data-selected="宵夜"] .clock-arc{background:linear-gradient(155deg,#aa8acb 0%,#67579d 48%,#182d65 100%);border-color:#6b6797}
+.meal-clock[data-selected="宵夜"] .clock-horizon{background:#6b6797}
+.meal-clock[data-selected="宵夜"] .clock-needle{box-shadow:0 0 0 1px #382d5a}
+@media(max-width:720px){.meal-clock{max-width:270px}}
+@media(prefers-reduced-motion:reduce){.clock-needle,.clock-icon{transition:none}}
+
+/* A quick way to choose from the current filters. */
+.heading-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.heading .pick-button{background:#daa000;color:#171717;box-shadow:none}
+.heading .pick-button:hover{background:#f0bd30}
+.heading-actions .newBtn{background:#fff;color:#171717;box-shadow:none}
+.heading-actions .newBtn:hover{background:#f4f4fb}
+.pick-dialog{max-width:460px}
+.pick-body{padding:24px 25px 26px}
+.pick-kicker{margin:0 0 8px;color:#555867;font-size:14px}
+.pick-name{margin:0;color:#161616;font-size:24px;overflow-wrap:anywhere}
+.pick-meta{margin:8px 0 0;color:#555867;line-height:1.6;overflow-wrap:anywhere}
+.pick-map{display:inline-block;margin-top:16px;color:#000daa;font-weight:700}
+.pick-map[hidden]{display:none}
+.pick-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px;flex-wrap:wrap}
+.pick-actions button:disabled{cursor:not-allowed;opacity:.5}
+@media(max-width:720px){.heading{flex-direction:column;align-items:stretch;gap:20px}.heading-actions{justify-content:flex-start}.heading-actions .newBtn{display:none}.heading .pick-button{width:100%}.pick-body{padding:20px}}
+
+/* Pick within the currently opened location. */
+.resulthead{gap:12px;flex-wrap:wrap}
+.result-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.result-pick{min-height:40px;padding:8px 14px;border:0;border-radius:10px;background:#daa000;color:#171717;font-weight:700;font-size:14px}
+.result-pick:hover{background:#f0bd30}.result-pick[hidden]{display:none}
+@media(max-width:720px){.resulthead{align-items:flex-start}.result-actions{margin-left:auto}}
+
+/* Price tiers are based on the entered average per person. */
+.price-tier{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin:0 0 12px;padding:4px 9px 4px 5px;border:1px solid var(--tier-border);border-radius:999px;background:var(--tier-bg);color:var(--tier-text);font-size:13px;font-weight:700;line-height:1.25}
+.price-medal{display:grid;place-items:center;flex:none;width:25px;height:25px;border:1px solid var(--medal-border);border-radius:50%;background:var(--medal-bg);color:var(--medal-text);font-size:14px;line-height:1}
+.price-tier-copper{--tier-bg:#fff4eb;--tier-border:#e8c6b0;--tier-text:#6e351b;--medal-bg:#b86c45;--medal-border:#8c4628;--medal-text:#fff}
+.price-tier-silver{--tier-bg:#f2f4f7;--tier-border:#cdd2db;--tier-text:#3d4857;--medal-bg:#c2cbd7;--medal-border:#8f9bad;--medal-text:#354255}
+.price-tier-gold{--tier-bg:#fff8dc;--tier-border:#e7d28a;--tier-text:#674900;--medal-bg:#efc148;--medal-border:#b98812;--medal-text:#624400}
+.price-tier-diamond{--tier-bg:#eaf7ff;--tier-border:#a9d6ef;--tier-text:#145173;--medal-bg:#c1eaff;--medal-border:#79bbdc;--medal-text:#165171}
+.price-tier-platinum{--tier-bg:#791c2b;--tier-border:#611221;--tier-text:#f7d77b;--medal-bg:#791c2b;--medal-border:#cfa94e;--medal-text:#f7d77b}
+.price-help{margin:6px 0 0;color:#565965;font-size:13px;line-height:1.5}
+.price-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:0 0 12px;min-width:0}
+.price-row .price-tier{margin:0}
+.price-value{min-width:0;color:#555867;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+
+/* Main palette: orange is the primary action, blue is the accent. */
+:root{--brand-blue:#c94723;--brand-gold:#000daa}
+.logo{background:#000daa;color:#fff}
+.heading{background:radial-gradient(circle at 97% -65%,#c94723 0%,transparent 45%),#15151c}
+.heading::after{border-color:#7285ffbb}
+.heading .eyebrow{color:#bdc7ff}
+.primary{background:#c94723;color:#fff;box-shadow:0 5px 14px #c9472333}
+.primary:hover{background:#a9381d;box-shadow:0 7px 18px #c9472340}
+.overview b,.search-wrap span{color:#9c331b}
+.place-btn.active,.pill.active{border-color:#c94723;background:#c94723;color:#fff}
+.place-btn:hover:not(.active){background:#fff0eb}
+.card::before{background:#000daa}
+.card-actions a,.linkbtn:not(.muted),.add-place,.pick-map{color:#9c331b}
+.rating-btn[aria-pressed="true"]{border-color:#c94723;background:#c94723;color:#fff}
+.rating-btn:hover:not([aria-pressed="true"]){background:#fff0eb}
+.clock-option:hover{background:#fff0eb;color:#9c331b}
+.clock-option.active{color:#9c331b}
+.clock-option.active .clock-icon{background:#c94723;color:#fff;box-shadow:0 3px 10px #c9472340}
+.clock-needle{background:#000daa;box-shadow:0 0 0 1px #fff}
+.meal-clock[data-selected="宵夜"] .clock-needle{box-shadow:0 0 0 1px #fff}
+.clock-hub{background:#000daa;box-shadow:0 0 0 1px #000daa}
+.clock-all.active{border-color:#c94723;background:#c94723;color:#fff}
+.clock-all:hover:not(.active){background:#fff0eb}
+.result-pick{background:#000daa;color:#fff}
+.result-pick:hover{background:#2733ba}
+.checkrow input{accent-color:#c94723}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid #000daa;outline-offset:3px}
+@media(max-width:720px){.place-btn.active{border-color:#c94723}}
+
+.apple-rating{display:inline-grid;place-items:center;width:42px;min-height:42px;padding:6px;border-radius:10px;line-height:1}.apple-rating svg{width:27px;height:27px;display:block}.apple-rating[aria-pressed="true"]{background:#fff6f2;border-color:#c94723;box-shadow:0 0 0 2px #c94723;color:inherit}.apple-rating:hover:not([aria-pressed="true"]){background:#fff0eb}
+.logo{background:#a53a20;color:#ffd6ad}
+
+/* Palette accents inspired by the supplied reference, with akane as the hero colour. */
+.heading{background:radial-gradient(circle at 96% -62%,#ed914f55 0%,transparent 42%),radial-gradient(circle at 97% -65%,#c94723 0%,transparent 45%),#15151c}
+.heading .eyebrow{color:#84bee7}
+.heading::after{border-color:#84bee780;box-shadow:0 0 0 18px #13619918,0 0 0 36px #138ee60d}
+.heading::before{content:"";position:absolute;right:13%;top:24px;width:7px;height:7px;border-radius:50%;background:#efef6b;opacity:.75;box-shadow:22px 13px 0 -1px #84bee7, -25px 11px 0 -2px #ed914f;pointer-events:none}
+
+/* Keep the meaning of each apple visible below its icon. */
+.apple-rating{width:54px;min-height:64px;grid-auto-flow:row;grid-template-rows:auto auto;gap:3px;padding:6px 4px}
+.apple-rating-text{display:block;font-size:14px;line-height:1.25;white-space:nowrap;color:#363842}
+
+/* Keep the entire dial and its controls inside the mobile viewport. */
+@media(max-width:720px){
+  header .top{flex-wrap:wrap}
+  .top-actions{margin-left:auto}
+  .top-actions .ghost{min-height:44px}
+  .place-list{max-width:100%;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-block:3px 7px}
+  .place-list .place-btn{min-height:44px}
+  #mealFilters.meal-filter{width:100%;min-width:0;padding-inline:3px}
+  .meal-clock{width:min(100%,270px);height:auto;aspect-ratio:270 / 165;overflow:visible}
+  .clock-arc{left:14%;right:14%;bottom:19%;height:auto;aspect-ratio:2 / 1;border-radius:999px 999px 0 0}
+  .clock-horizon{bottom:19%}
+  .clock-option{width:48px;min-height:54px;font-size:14px}
+  .clock-breakfast{left:24px;top:62%}
+  .clock-night{left:calc(100% - 24px);top:62%}
+  .clock-lunch,.clock-dinner{top:22%}
+  .clock-needle{bottom:calc(19% + 1px);height:47%}
+  .clock-hub{bottom:calc(19% - 5px)}
+  .clock-all{min-height:44px}
+  .searchrow,.search-wrap,.resulthead,.resulthead h2,.result-actions{min-width:0}
+  .resulthead h2{overflow-wrap:anywhere}
+  .card-actions{flex-wrap:wrap}
+  dialog{max-height:calc(100dvh - 24px);overflow:auto}
+}
+@media(max-width:380px){
+  .rating-label{flex-basis:100%;margin-right:0}
+  .rating{column-gap:8px;row-gap:7px}
+}
+
+.added-date{font-size:12px;color:#777985;margin-top:4px}
+/* Clear weekly closure information on each restaurant and in the editor. */
+.closure-badge{display:inline-flex;align-items:center;align-self:flex-start;gap:6px;max-width:100%;margin:13px 0 0;padding:6px 10px;border:1px solid #e6b6a6;border-radius:9px;background:#fff2ed;color:#81321d;font-size:14px;font-weight:700;line-height:1.4;overflow-wrap:anywhere}
+.closure-badge.unknown{border-color:#dddfe8;background:#f4f4f8;color:#545765;font-weight:600}
+.menu-photo-list{display:grid;gap:8px;margin-top:8px}.menu-photo-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid #e7d7d0;border-radius:9px;font-size:14px}.menu-photo-item span{overflow-wrap:anywhere}.menu-photo-remove{border:0;background:none;color:#9c331b;font-weight:700}.menu-image-view{padding:20px;text-align:center}.menu-image-view img{display:block;max-width:100%;max-height:70vh;margin:0 auto;object-fit:contain}.menu-links{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0}.menu-links-label{font-size:13px;font-weight:700;color:#555867}.menu-link{display:inline-flex;align-items:center;min-height:36px;padding:6px 11px;border:1px solid #e6b4a5;border-radius:9px;background:#fff6f1;color:#9c331b;font-size:14px;font-weight:700;text-decoration:none}.menu-link:hover{background:#ffebe1}.menu-link{max-width:100%;text-align:left;overflow-wrap:anywhere}.menu-help{font-size:13px;color:#666a77;line-height:1.5;margin:7px 0 0}.closure-editor select{width:100%}.closure-days{border:0;margin:12px 0 0;padding:0;min-width:0}.closure-days[hidden]{display:none!important}.closure-days legend{padding:0;margin:0 0 8px;font-size:14px;font-weight:700}.closure-day-list{display:flex;gap:7px;flex-wrap:wrap}.closure-day-list label{display:inline-flex;align-items:center;gap:5px;min-height:42px;margin:0;padding:7px 9px;border:1px solid #d8d9e2;border-radius:9px;font-size:14px;font-weight:500}.closure-day-list input{width:17px;height:17px;accent-color:#c94723}
+.menu-link{flex-direction:column;align-items:flex-start;gap:2px;line-height:1.4}.menu-link-source{display:block;font-size:14px;font-weight:500;color:#754a3e;overflow-wrap:anywhere}
+
+/* Nested locations retain their stored IDs while showing concise place names. */
+.place-list{display:block;overflow:visible}.place-subgroup{margin:10px 0 2px}.place-subgroup-title{display:block;padding:3px 12px;color:#777785;font-size:14px;font-weight:700}.place-subgroup-items{margin:4px 0 0 13px;padding-left:7px;border-left:2px solid #eadbd5}.place-subgroup-items .place-btn{padding-left:11px}
+@media(max-width:720px){.place-list{display:block;overflow:visible;padding-bottom:0}.place-list .place-btn{width:100%;white-space:normal;border-color:transparent;border-radius:10px}.place-list .place-btn.active{border-color:#c94723}.place-subgroup-title{padding-top:6px}}
+.metro-place{position:relative}.metro-place .place-btn{padding-right:42px}.metro-name{display:inline-flex;flex-direction:column;vertical-align:middle;gap:3px;min-width:4em;max-width:100%}.metro-label{display:block;min-width:4em;max-width:100%;overflow-wrap:anywhere}.metro-label.spread{display:flex;justify-content:center;gap:1em;letter-spacing:normal;text-indent:0}.metro-lines{display:flex;gap:3px;height:4px;min-width:100%}.metro-line{display:block;height:4px;flex:1;border-radius:2px}.metro-line.red{background:#e3002b}.metro-line.blue{background:#0070bd}.metro-line.green{background:#008659}.metro-info{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;display:grid;place-items:center;padding:0;border:1px solid #cbcdd7;border-radius:50%;background:#fff;color:#555a6a;font-size:14px;font-weight:700;line-height:1}.metro-pop{display:none;position:absolute;z-index:20;left:8px;top:calc(100% - 2px);width:max-content;max-width:min(250px,90vw);padding:10px 12px;border:1px solid #d9dce6;border-radius:9px;background:white;box-shadow:0 7px 22px #0b164d22;color:#303747;font-size:14px;line-height:1.5;white-space:normal;pointer-events:none}.metro-place:hover .metro-pop,.metro-place:focus-within .metro-pop,.metro-info[aria-expanded="true"]~.metro-pop{display:block}.metro-pop small{display:block;color:#646b79;font-size:12px}
+.updates{margin:0 0 18px;padding:14px 18px;border:1px solid #e5d2cc;border-radius:14px;background:#fff;color:#34343d}.updates summary{cursor:pointer;color:#a43a20;font-weight:700;font-size:16px}.updates summary:focus-visible{outline:3px solid #e1a848;outline-offset:4px}.updates-latest{margin:5px 0 0;color:#555761;font-size:14px}.updates-note{margin:12px 0 0;color:#62646e;font-size:13px}.updates ol{max-height:320px;overflow:auto;margin:12px 0 0;padding:12px 0 0;list-style:none;border-top:1px solid #eee2de}.updates li{padding:4px 0;color:#494b55;font-size:14px}.updates li strong{display:inline-block;min-width:3.3em;color:#a43a20}.updates li time{display:inline-block;margin-right:10px;white-space:nowrap;color:#666874;font-size:13px;font-variant-numeric:tabular-nums}
+.metro-line.orange{background:#f8a600}.metro-line.brown{background:#a06938}
+.weekend-group-filter{display:flex;align-items:center;justify-content:flex-start;width:100%;min-height:40px;padding:8px 0;margin:0 0 6px;border:0;border-radius:9px;background:transparent;color:#555867;text-align:left;font-size:14px;font-weight:700}.weekend-group-filter:hover{background:#fff1ec}.weekend-group-filter[aria-pressed="true"]{background:#c94723;color:#fff}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="brand"><div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" width="25" height="25" fill="#ffd6ad" xmlns="http://www.w3.org/2000/svg"><path d="M15.7 2.2c-.3 1.4-1.3 2.6-2.8 2.8-.1-1.5.8-2.8 2.8-2.8ZM12 6.8c1.1 0 2-.9 3.8-.9 2.6 0 4.2 2 4.2 4.7 0 4-3 9.4-5.5 9.4-1 0-1.5-.6-2.5-.6s-1.5.6-2.5.6C7 20 4 14.6 4 10.6c0-2.7 1.6-4.7 4.2-4.7 1.8 0 2.7.9 3.8.9Z"/></svg></div><div><strong>今天吃什麼</strong><small>MY FOOD POCKET LIST</small></div></div><div class="top-actions"><button class="ghost" id="exportBtn">匯出備份</button><button class="ghost" id="importBtn">匯入備份</button><input id="importFile" type="file" accept="application/json,.json" hidden></div></div></header>
+<main><details class="updates"><summary>網站更新紀錄 · 最新 v46<br><span class="updates-latest">2026-11-26 18:07（台灣時間） · 新增價格獎牌篩選</span></summary><p class="updates-note">時間以台灣時間顯示；v1–v45 為上線時間，v46 為紀錄建立時間。</p><ol>
+<li><strong>v46</strong><time datetime="2026-11-26T10:07:00Z">2026-11-26 18:07</time>左側新增價格獎牌篩選，列出各級距的金額範圍。</li>
+<li><strong>v45</strong><time datetime="2026-11-26T10:01:08Z">2026-11-26 18:01</time>新增 GitHub Pages 網站入口，連接原有共用清單及菜單照片。</li>
+<li><strong>v44</strong><time datetime="2026-11-26T07:55:41Z">2026-11-26 15:55</time>精簡聚餐寶地選單，直接點擊標題即可查看餐廳。</li>
+<li><strong>v43</strong><time datetime="2026-11-26T07:52:44Z">2026-11-26 15:52</time>新增中央大學附近聚餐寶地與包廂餐廳；整理週末標題及捷運色線寬度。</li>
+<li><strong>v42</strong><time datetime="2026-11-26T07:43:55Z">2026-11-26 15:43</time>兩字地名在捷運色線上方置中，並在店家地點後方顯示區域。</li>
+<li><strong>v41</strong><time datetime="2026-11-26T07:38:47Z">2026-11-26 15:38</time>調整週末去處兩字地名的字距，中間保留約一個中文字寬。</li>
+<li><strong>v40</strong><time datetime="2026-11-26T07:33:51Z">2026-11-26 15:33</time>週末去處可整體篩選、地名排列更整齊，新增松江南京、忠孝復興、南港及餐廳。</li>
+<li><strong>v39</strong><time datetime="2026-11-25T20:51:44Z">2026-11-26 04:51</time>新增 6 間店家、週末去處加入公館與東門，並新增合併前備份差異檢視。</li>
+<li><strong>v38</strong><time datetime="2026-11-25T20:36:38.933404+00:00">2026-11-26 04:36</time>西門與府中各新增四間餐廳及菜單、參考價格、營業時間；改善未同步變更時無法操作的問題。</li>
+<li><strong>v37</strong><time datetime="2026-11-25T20:29:17.364753+00:00">2026-11-26 04:29</time>更新 39 家店的營業資訊，週末去處新增西門、府中與捷運車程。</li>
+<li><strong>v36</strong><time datetime="2026-11-25T18:21:12.977401+00:00">2026-11-26 02:21</time>中壢新增 11 間店家，並補上可查證的菜單、參考價格與公休日。</li>
+<li><strong>v35</strong><time datetime="2026-11-25T18:13:33.969652+00:00">2026-11-26 02:13</time>中壢新增中壢牛肉麵，補上菜單與參考價格。</li>
+<li><strong>v34</strong><time datetime="2026-11-25T18:07:37.333918+00:00">2026-11-26 02:07</time>更新紀錄加入每個版本的日期與時間。</li>
+<li><strong>v33</strong><time datetime="2026-11-25T17:59:21.601861+00:00">2026-11-26 01:59</time>貴族世家標籤改為深紅底、金色文字；新增版本更新紀錄。</li>
+<li><strong>v32</strong><time datetime="2026-11-25T17:55:14.899398+00:00">2026-11-26 01:55</time>皇冠圖示底色改為深紅色。</li>
+<li><strong>v31</strong><time datetime="2026-11-25T17:52:35.159030+00:00">2026-11-26 01:52</time>價格標示改為鑽石級與貴族世家，加入皇冠。</li>
+<li><strong>v30</strong><time datetime="2026-11-25T17:50:07.054048+00:00">2026-11-26 01:50</time>常待地點移至週五吃飯上方。</li>
+<li><strong>v29</strong><time datetime="2026-11-25T17:46:49.987757+00:00">2026-11-26 01:46</time>週末去處與常待地點並列；移除蘋果核下方的梗。</li>
+<li><strong>v28</strong><time datetime="2026-11-25T17:45:06.894536+00:00">2026-11-26 01:45</time>台電大樓地點名稱簡化。</li>
+<li><strong>v27</strong><time datetime="2026-11-25T17:40:48.902423+00:00">2026-11-26 01:40</time>全部地點置頂；週末地點按捷運車程排序並加入台電大樓交通資訊。</li>
+<li><strong>v26</strong><time datetime="2026-11-25T17:27:31.025791+00:00">2026-11-26 01:27</time>加入捷運路線顏色與預估車程。</li>
+<li><strong>v25</strong><time datetime="2026-11-25T17:20:28.746294+00:00">2026-11-26 01:20</time>新增週五吃飯分類。</li>
+<li><strong>v24</strong><time datetime="2026-11-25T17:17:28.516482+00:00">2026-11-26 01:17</time>整理常待地點與週末去處，簡化地點名稱。</li>
+<li><strong>v23</strong><time datetime="2026-11-25T17:13:07.055594+00:00">2026-11-26 01:13</time>菜單日期與來源分行顯示。</li>
+<li><strong>v22</strong><time datetime="2026-11-25T16:17:44.693887+00:00">2026-11-26 00:17</time>簡化菜單相關文字。</li>
+<li><strong>v21</strong><time datetime="2026-11-25T16:15:18.796251+00:00">2026-11-26 00:15</time>修正店家編輯表單。</li>
+<li><strong>v20</strong><time datetime="2026-11-25T16:11:43.369009+00:00">2026-11-26 00:11</time>加入菜單連結、照片與加入日期。</li>
+<li><strong>v19</strong><time datetime="2026-11-25T14:06:57.815181+00:00">2026-11-25 22:06</time>共用連結區分查看與私人編輯權限。</li>
+<li><strong>v18</strong><time datetime="2026-11-25T13:52:49.255950+00:00">2026-11-25 21:52</time>更新主視覺文案。</li>
+<li><strong>v17</strong><time datetime="2026-11-25T13:51:18.602435+00:00">2026-11-25 21:51</time>加入公休標籤及全部時段漸層。</li>
+<li><strong>v16</strong><time datetime="2026-11-25T13:31:41.742284+00:00">2026-11-25 21:31</time>加入免登入共用清單。</li>
+<li><strong>v15</strong><time datetime="2026-11-25T12:59:31.750182+00:00">2026-11-25 20:59</time>更新評價圖示。</li>
+<li><strong>v14</strong><time datetime="2026-11-25T12:52:36.025593+00:00">2026-11-25 20:52</time>優化手機版時段時鐘。</li>
+<li><strong>v13</strong><time datetime="2026-11-25T12:48:16.120618+00:00">2026-11-25 20:48</time>評價圖示下方加入文字。</li>
+<li><strong>v12</strong><time datetime="2026-11-25T12:44:25.153750+00:00">2026-11-25 20:44</time>更新蘋果品牌、評價圖示與茜色配色。</li>
+<li><strong>v11</strong><time datetime="2026-11-25T12:38:17.782507+00:00">2026-11-25 20:38</time>調整主色並讓價格同排顯示。</li>
+<li><strong>v10</strong><time datetime="2026-11-25T12:25:21.251010+00:00">2026-11-25 20:25</time>加入價格獎牌及地點內的幫我選功能。</li>
+<li><strong>v9</strong><time datetime="2026-11-25T12:18:40.569153+00:00">2026-11-25 20:18</time>依地點提供幫我選功能。</li>
+<li><strong>v8</strong><time datetime="2026-11-25T12:12:29.232483+00:00">2026-11-25 20:12</time>新增幫我選功能。</li>
+<li><strong>v7</strong><time datetime="2026-11-25T12:07:58.091928+00:00">2026-11-25 20:07</time>品牌標誌改為蘋果。</li>
+<li><strong>v6</strong><time datetime="2026-11-25T12:06:41.333717+00:00">2026-11-25 20:06</time>為不同時段加入天空漸層。</li>
+<li><strong>v5</strong><time datetime="2026-11-25T11:59:03.598070+00:00">2026-11-25 19:59</time>加入半圓用餐時段時鐘。</li>
+<li><strong>v4</strong><time datetime="2026-11-25T11:55:30.389419+00:00">2026-11-25 19:55</time>調整餐別選項排列。</li>
+<li><strong>v3</strong><time datetime="2026-11-25T11:53:03.672493+00:00">2026-11-25 19:53</time>加入雲端同步。</li>
+<li><strong>v2</strong><time datetime="2026-11-25T11:37:39.748413+00:00">2026-11-25 19:37</time>調整黑、藍、橙主題與功能。</li>
+<li><strong>v1</strong><time datetime="2026-11-25T11:31:16.908426+00:00">2026-11-25 19:31</time>網站初版。</li>
+</ol></details><section class="heading"><div><p class="eyebrow">U EAT I EAT</p><h1>豬魔 一起 強大</h1><p>先選個常待的地方，早餐、午餐、晚餐到宵夜都有靈感。</p></div><div class="heading-actions"><button class="primary newBtn">＋ 新增店家</button></div></section>
+<div class="overview"><div><b id="totalCount">0</b> 間口袋店家</div><div><b id="placeCount">3</b> 個常待地點</div></div>
+<div class="layout"><aside class="panel filters"><h2 class="section-label">找一間好店</h2><div class="place-list" id="allPlaceList"></div><div class="group"><span class="group-title">常待地點</span><div class="place-list" id="placeList" role="group" aria-label="常待地點"></div></div><div class="group"><span class="group-title">週五吃飯</span><div class="place-list" id="fridayPlaceList" role="group" aria-label="週五吃飯"></div></div><div class="group"><button type="button" id="weekendGroup" class="weekend-group-filter" data-place="__weekend_group__" aria-pressed="false" aria-controls="cards">週末去處</button><div class="place-list" id="weekendPlaceList" role="group" aria-label="週末去處"></div><button id="addPlace" class="add-place">＋ 新增常待地點</button></div><div class="group"><button type="button" id="gatheringGroup" class="weekend-group-filter" data-place="__gathering_group__" aria-pressed="false" aria-controls="cards">聚餐寶地</button><div class="place-list" id="gatheringPlaceList" role="group" aria-label="聚餐寶地"></div></div><div class="group"><span class="group-title">用餐時段</span><div class="meal-filter" id="mealFilters" role="group" aria-label="選擇用餐時段">
+<div class="meal-clock" id="mealClock" data-selected="全部">
+  <div class="clock-arc" aria-hidden="true"></div><div class="clock-horizon" aria-hidden="true"></div>
+  <div class="clock-needle" aria-hidden="true"></div><div class="clock-hub" aria-hidden="true"></div>
+  <button type="button" class="clock-option clock-breakfast" data-meal="早餐" aria-label="篩選早餐" aria-pressed="false"><svg class="clock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M5 15a7 7 0 0 1 14 0M12 3v3M4.2 7.2l2.1 2.1M19.8 7.2l-2.1 2.1"/></svg><span>早餐</span></button>
+  <button type="button" class="clock-option clock-lunch" data-meal="午餐" aria-label="篩選午餐" aria-pressed="false"><svg class="clock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg><span>午餐</span></button>
+  <button type="button" class="clock-option clock-dinner" data-meal="晚餐" aria-label="篩選晚餐" aria-pressed="false"><svg class="clock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M5 15a7 7 0 0 1 14 0M12 3v3M4.2 7.2l2.1 2.1M19.8 7.2l-2.1 2.1M12 9v5m-2-2 2 2 2-2"/></svg><span>晚餐</span></button>
+  <button type="button" class="clock-option clock-night" data-meal="宵夜" aria-label="篩選宵夜" aria-pressed="false"><svg class="clock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.4 15.6A8 8 0 0 1 8.4 4.6 8 8 0 1 0 19.4 15.6Z"/><path d="M17 4v3m-1.5-1.5h3"/></svg><span>宵夜</span></button>
+</div><button type="button" class="clock-all active" data-meal="全部" aria-pressed="true">全部時段</button></div></div><div class="group"><label class="group-title" for="categoryFilter">餐點類型</label><select id="categoryFilter"><option value="">全部類型</option></select></div><div class="group"><label class="group-title" for="priceFilter">價格獎牌</label><select id="priceFilter"><option value="">全部價格</option><option value="copper">🥉 銅獎牌・200 元以下</option><option value="silver">🥈 銀獎牌・超過 200 至 400 元</option><option value="gold">🥇 金獎牌・超過 400 至 800 元</option><option value="diamond">💎 鑽石級・超過 800 未滿 1,000 元</option><option value="platinum">👑 貴族世家・1,000 元以上</option></select><p class="price-help">價格區間以平均值判斷；未填或無法辨識價格的店家僅顯示於全部價格。</p></div><div class="group"><label class="checkrow"><input type="checkbox" id="favoriteFilter"> 只看收藏</label></div></aside>
+<section class="content"><div class="searchrow"><label class="search-wrap"><span aria-hidden="true">⌕</span><input class="field" id="search" placeholder="搜尋店名、餐點或備註" aria-label="搜尋店家"></label><button class="primary newBtn mobile-add">＋ 新增</button></div><div class="resulthead"><h2 id="resultTitle">所有口袋名單</h2><div class="result-actions"><span id="resultCount">0 間店</span><button type="button" class="result-pick" id="pickLocation" hidden>✦ 幫我選一個</button></div></div><div class="cards" id="cards"></div><p class="footnote"><strong>資料儲存在目前的瀏覽器。</strong>不會自動同步到手機或其他裝置；清除瀏覽器資料可能會遺失名單。建議定期匯出備份，換裝置時再匯入。</p></section></div></main>
+<dialog id="pickDialog" class="pick-dialog" aria-labelledby="pickTitle"><div class="dialog-head"><h2 id="pickTitle">幫我選一個</h2><button class="close" type="button" data-close="pickDialog" aria-label="關閉">×</button></div><div class="pick-body"><div aria-live="polite"><p class="pick-kicker" id="pickKicker">從目前篩選的店家中挑選</p><h3 class="pick-name" id="pickName"></h3><p class="pick-meta" id="pickMeta"></p></div><a id="pickMap" class="pick-map" target="_blank" rel="noopener noreferrer" hidden>查看地圖</a><div class="pick-actions"><button type="button" class="secondary" data-close="pickDialog">關閉</button><button type="button" class="primary" id="pickAgain">再選一次</button></div></div></dialog>
+<dialog id="restaurantDialog"><div class="dialog-head"><h2 id="dialogTitle">新增店家</h2><button class="close" type="button" data-close="restaurantDialog" aria-label="關閉">×</button></div><form id="restaurantForm"><div class="formbody"><div class="formgrid"><div class="formgroup full"><label for="name">店家名稱 *</label><input class="field" id="name" required maxlength="100" placeholder="例如：喜歡的便當店"></div><div class="formgroup"><label for="place">常待地點 *</label><select id="place" required></select></div><div class="formgroup"><label for="category">餐點類型</label><input class="field" id="category" list="categories" placeholder="例如：便當、麵食"><datalist id="categories"><option value="便當"><option value="麵食"><option value="飯類"><option value="火鍋"><option value="日式"><option value="韓式"><option value="早午餐"><option value="素食"><option value="其他"></datalist></div><div class="formgroup full"><span class="formlabel">適合時段 *</span><div class="checkrow"><label><input type="checkbox" name="meal" value="早餐"> 早餐</label><label><input type="checkbox" name="meal" value="午餐"> 午餐</label><label><input type="checkbox" name="meal" value="晚餐"> 晚餐</label><label><input type="checkbox" name="meal" value="宵夜"> 宵夜</label></div></div><div class="formgroup"><label for="price">平均價格 <span class="hint">（每人，選填）</span></label><input class="field" id="price" placeholder="例如：150 或 150–200 元" aria-describedby="priceHelp"><p class="price-help" id="priceHelp">填入單價或區間；區間以平均值顯示價格獎牌。</p></div><div class="formgroup"><label for="hours">營業時間／其他資訊 <span class="hint">（選填）</span></label><input class="field" id="hours" placeholder="例如：11:00–20:00"></div><div class="formgroup full closure-editor"><label for="closedMode">公休日 <span class="hint">（選填）</span></label><select id="closedMode"><option value="unknown">未設定</option><option value="weekly">每週固定公休</option><option value="irregular">不定休</option><option value="none">無公休</option></select><fieldset class="closure-days" id="closedDaysGroup" hidden><legend>選擇每週公休日（可複選）</legend><div class="closure-day-list"><label><input type="checkbox" name="closedDay" value="一">週一</label><label><input type="checkbox" name="closedDay" value="二">週二</label><label><input type="checkbox" name="closedDay" value="三">週三</label><label><input type="checkbox" name="closedDay" value="四">週四</label><label><input type="checkbox" name="closedDay" value="五">週五</label><label><input type="checkbox" name="closedDay" value="六">週六</label><label><input type="checkbox" name="closedDay" value="日">週日</label></div></fieldset></div><div class="formgroup full"><label for="address">地址 <span class="hint">（選填，用於地圖搜尋）</span></label><input class="field" id="address" placeholder="輸入地址或附近地標"></div><div class="formgroup full"><label for="mapUrl">地圖連結 <span class="hint">（選填）</span></label><input class="field" id="mapUrl" type="url" placeholder="https://..."></div><div class="formgroup full"><label for="menuPhotos">菜單照片 <span class="hint">（選填）</span></label><input class="field" id="menuPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple><p class="menu-help">最多 5 張，每張 5 MB 以下，支援 JPG、PNG、WebP。</p><div id="menuPhotoList" class="menu-photo-list"></div></div><div class="formgroup full"><label for="menuUrls">菜單連結 <span class="hint">（選填）</span></label><textarea id="menuUrls" maxlength="20480" placeholder="貼上菜單網址，每行一個"></textarea><p class="menu-help">可放店家官網、公開的菜單照片或 PDF 連結，最多 10 個。請確認連結已開放給查看者。</p></div><div class="formgroup full"><label for="notes">備註 <span class="hint">（選填）</span></label><textarea id="notes" placeholder="推薦餐點、口味或其他想記下的事"></textarea></div></div><p class="error" id="formError" role="alert"></p><div class="dialog-actions"><button class="secondary" type="button" data-close="restaurantDialog">取消</button><button class="primary" type="submit">儲存店家</button></div></div></form></dialog>
+<dialog id="menuImageDialog" aria-labelledby="menuImageTitle"><div class="dialog-head"><h2 id="menuImageTitle">菜單照片</h2><button class="close" type="button" data-close="menuImageDialog" aria-label="關閉">×</button></div><div class="menu-image-view"><p id="menuImageStatus" role="status"></p><img id="menuImage" alt="菜單照片" hidden></div></dialog><dialog id="placeDialog"><div class="dialog-head"><h2>新增常待地點</h2><button class="close" type="button" data-close="placeDialog" aria-label="關閉">×</button></div><form id="placeForm"><div class="formbody"><div class="formgroup"><label for="placeGroup">地點分類</label><select id="placeGroup"><option value="weekend">週末去處</option><option value="work">工作地點</option><option value="friday">週五吃飯</option><option value="gathering">聚餐寶地</option></select></div><div class="formgroup"><label for="placeName">地點名稱</label><input class="field" id="placeName" required maxlength="60" placeholder="例如：新埔"></div><p class="error" id="placeError" role="alert"></p><div class="dialog-actions"><button class="secondary" type="button" data-close="placeDialog">取消</button><button class="primary" type="submit">新增地點</button></div></div></form></dialog>
+<script src="./sync.js"></script><script>
+(async()=>{'use strict';const KEY='meal-pocket-v1';const defaults=['工作地點・中壢','常用地點・台北車站','常用地點・板橋'];let data={places:[...defaults],restaurants:[]};try{const saved=await window.mealSync.boot();if(saved&&Array.isArray(saved.places)&&Array.isArray(saved.restaurants))data=saved}catch(e){}let filters={place:'全部地點',meal:'全部',category:'',query:'',favorite:false,price:''};let editId=null;let stagedMenuImages=[];let uploadingMenus=false;let menuImageObjectUrl='';let menuImageRequest=0;let pickPlace=null;let lastPickId=null;const $=id=>document.getElementById(id);const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const save=()=>window.mealSync.save(data);const uid=()=>globalThis.crypto?.randomUUID?.()||Date.now()+'-'+Math.random().toString(36).slice(2);const todayDate=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};function priceTier(raw){
+  if(typeof raw!=='string')return null;
+  const match=raw.normalize('NFKC').match(/^\s*(?:約|大約|平均|每人)?\s*(?:NT\$|NTD|TWD|新台幣|新臺幣|\$)?\s*((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)(?:\s*(?:元|塊)?\s*(?:-|–|—|~|至|到)\s*(?:NT\$|NTD|TWD|新台幣|新臺幣|\$)?\s*((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?))?\s*(?:元|塊|NTD)?\s*(?:\/人|每人)?\s*(?:左右)?\s*$/i);
+  if(!match)return null;
+  const a=Number(match[1].replaceAll(',','')),b=match[2]?Number(match[2].replaceAll(',','')):a;
+  if(!Number.isFinite(a)||!Number.isFinite(b)||a>1e7||b>1e7)return null;
+  const avg=(a+b)/2;
+  if(avg<=200)return {kind:'copper',label:'銅獎牌',symbol:'🥉'};
+  if(avg<=400)return {kind:'silver',label:'銀獎牌',symbol:'🥈'};
+  if(avg<=800)return {kind:'gold',label:'金獎牌',symbol:'🥇'};
+  if(avg<1000)return {kind:'diamond',label:'鑽石級',symbol:'💎'};
+  return {kind:'platinum',label:'貴族世家',symbol:'👑'};
+}
+function priceBadge(raw){const t=priceTier(raw);return t?`<div class="price-tier price-tier-${t.kind}" aria-label="價格標記：${t.label}"><span class="price-medal" aria-hidden="true">${t.symbol}</span><span>${t.label}</span></div>`:''}
+function priceRow(raw){if(raw==null||!String(raw).trim())return '';return `<div class="price-row">${priceBadge(raw)}<span class="price-value">${escape(raw)}</span></div>`}
+function closureBadge(r){const order=['一','二','三','四','五','六','日'];let text='未設定';if(r.closedMode==='weekly'&&Array.isArray(r.closedDays)){const days=order.filter(day=>r.closedDays.includes(day));if(days.length)text=days.map(day=>'週'+day).join('、')}else if(r.closedMode==='irregular')text='不定休';else if(r.closedMode==='none')text='無公休';return `<div class="closure-badge ${text==='未設定'?'unknown':''}">公休日：${escape(text)}</div>`}
+function updateClosureForm(){$('closedDaysGroup').hidden=$('closedMode').value!=='weekly'}
+$('closedMode').addEventListener('change',updateClosureForm);
+function menuLinks(r){return (Array.isArray(r.menuUrls)?r.menuUrls:[]).filter(v=>typeof v==='string').slice(0,10).map(v=>{try{const u=new URL(v);return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}}).filter(Boolean)}
+function menuImages(r={}){return (Array.isArray(r.menuImages)?r.menuImages:[]).filter(x=>x&&typeof x.id==='string'&&/^[0-9a-f-]{36}$/i.test(x.id)&&typeof x.name==='string').slice(0,5)}
+function menuDate(value){return typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)?value:'未記錄'}
+function menuSource(url){const host=new URL(url).hostname.replace(/^www\./i,'');if(host==='pixnet.net'||host.endsWith('.pixnet.net'))return '痞客邦';if(host==='fooday.app'||host.endsWith('.fooday.app'))return 'Fooday';return host}
+function renderMenuLinks(r){const links=menuLinks(r),images=menuImages(r);return links.length||images.length?`<div class="menu-links" aria-label="菜單"><span class="menu-links-label">菜單</span>${images.map((image,i)=>`<button type="button" class="menu-link" data-menu-image="${escape(image.id)}"><span>照片 ${i+1} · 加入 ${escape(menuDate(image.addedAt))}</span><span class="menu-link-source">來源：上傳照片</span></button>`).join('')}${links.map((url,i)=>`<a class="menu-link" href="${escape(url)}" target="_blank" rel="noopener noreferrer"><span>${links.length===1?'查看菜單':`菜單 ${i+1}`} · 加入 ${escape(menuDate(r.menuLinkDates?.[url]))}</span><span class="menu-link-source">來源：${escape(menuSource(url))}</span></a>`).join('')}</div>`:''}
+function renderStagedMenuImages(){$('menuPhotoList').innerHTML=stagedMenuImages.map((image,i)=>`<div class="menu-photo-item"><span>${escape(image.name)} · 加入 ${escape(menuDate(image.addedAt))}</span><button type="button" class="menu-photo-remove" data-remove-menu-image="${i}" aria-label="移除 ${escape(image.name)}">移除</button></div>`).join('')}
+$('menuPhotos').addEventListener('change',e=>{const files=Array.from(e.target.files||[]);e.target.value='';if(stagedMenuImages.length+files.length>5){$('formError').textContent='每家店最多可放 5 張菜單照片。';return}if(files.some(file=>!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5*1024*1024||file.size===0)){$('formError').textContent='請選擇 5 MB 以下的 JPG、PNG 或 WebP 照片。';return}stagedMenuImages.push(...files.map(file=>({name:file.name.slice(0,160)||'菜單照片',addedAt:todayDate(),file})));$('formError').textContent='';renderStagedMenuImages()});
+$('menuPhotoList').addEventListener('click',e=>{const button=e.target.closest('[data-remove-menu-image]');if(!button)return;stagedMenuImages.splice(Number(button.dataset.removeMenuImage),1);renderStagedMenuImages()});
+$('menuImageDialog').addEventListener('close',()=>{menuImageRequest++;if(menuImageObjectUrl){URL.revokeObjectURL(menuImageObjectUrl);menuImageObjectUrl=''}$('menuImage').hidden=true;$('menuImage').removeAttribute('src')});
+$('restaurantDialog').addEventListener('cancel',e=>{if(uploadingMenus)e.preventDefault()});
+async function openMenuImage(id){const request=++menuImageRequest;const img=$('menuImage');img.hidden=true;$('menuImageStatus').textContent='正在載入菜單照片…';$('menuImageDialog').showModal();try{const response=await window.mealMenuFetch('/api/menu-images?id='+encodeURIComponent(id),{cache:'no-store'});if(!response.ok)throw Error();const blob=await response.blob();if(request!==menuImageRequest)return;menuImageObjectUrl=URL.createObjectURL(blob);img.src=menuImageObjectUrl;img.hidden=false;$('menuImageStatus').textContent=''}catch(e){if(request===menuImageRequest)$('menuImageStatus').textContent='無法載入菜單照片，請稍後再試。'}}
+// Use the existing stored strings as stable IDs; only the visible label changes.
+const WEEKEND_GROUP='__weekend_group__',GATHERING_GROUP='__gathering_group__';
+function isWorkPlace(p){return /^工作地點\s*[・·：:]\s*/.test(p)}
+function isFridayPlace(p){return /^週五吃飯\s*[・·：:]\s*/.test(p)}
+function isGatheringPlace(p){return /^聚餐寶地\s*[・·：:]\s*/.test(p)}
+function placeGroup(p){return isWorkPlace(p)?'work':isFridayPlace(p)?'friday':isGatheringPlace(p)?'gathering':'weekend'}
+function placeName(p){return String(p||'').replace(/^(?:常用地點|工作地點|週五吃飯|聚餐寶地)\s*[・·：:]\s*/, '')}
+function placeLabel(p){if(p===WEEKEND_GROUP)return '週末去處';if(p===GATHERING_GROUP)return '聚餐寶地';const rawName=placeName(p),name=rawName==='台電大樓站'?'台電大樓':rawName;const same=data.places.filter(x=>{const n=placeName(x);return (n==='台電大樓站'?'台電大樓':n)===name});const groups={work:'工作',weekend:'週末',friday:'週五吃飯',gathering:'聚餐寶地'};return same.length>1?name+'（'+groups[placeGroup(p)]+'）':name}
+const metroPlaces={
+  '台北車站':{id:'taipei',lines:['red','blue'],station:'台北車站',minutes:0,time:'起點（0 分鐘）'},
+  '板橋':{id:'banqiao',lines:['blue'],station:'板橋站',minutes:12,time:'板南線約 12 分鐘'},
+  '信義':{id:'xinyi',lines:['red','blue'],station:'台北 101／世貿站',minutes:14,time:'淡水信義線約 14 分鐘'},
+  '中山':{id:'zhongshan',lines:['red','green'],station:'中山站',minutes:2,time:'淡水信義線約 2 分鐘'},
+  '松江南京':{id:'songjiang',lines:['green','orange'],station:'松江南京站',minutes:5,time:'約 5 分鐘（中山站轉綠線）'},
+  '忠孝復興':{id:'zhongxiaofuxing',lines:['blue','brown'],station:'忠孝復興站',minutes:5,time:'板南線約 5 分鐘'},
+  '南港':{id:'nangang',lines:['blue'],station:'南港站',minutes:18,time:'板南線約 18 分鐘'},
+  '東門':{id:'dongmen',lines:['red','orange'],station:'東門站',minutes:7,time:'淡水信義線約 7 分鐘'},
+  '公館':{id:'gongguan',lines:['green'],station:'公館站',minutes:9,time:'約 9 分鐘（中正紀念堂站轉綠線）'},
+  '西門':{id:'ximen',lines:['blue','green'],station:'西門站',minutes:2,time:'板南線約 2 分鐘'},
+  '府中':{id:'fuzhong',lines:['blue'],station:'府中站',minutes:14,time:'板南線約 14 分鐘'},
+  '三創':{id:'syntrend',lines:['blue'],station:'忠孝新生站',minutes:3,time:'板南線約 3 分鐘',walk:'出站後步行至三創約 5 分鐘'},
+  '台電大樓站':{id:'taipower',lines:['green'],station:'台電大樓站',minutes:7,time:'約 7 分鐘（中正紀念堂站轉綠線）'}
+};
+function metroForPlace(p){const name=placeName(p);return metroPlaces[name==='台電大樓'?'台電大樓站':name]}
+let metroTapOpen='';
+function placeButton(p){const metro=placeGroup(p)==='weekend'?metroForPlace(p):null;const rawLabel=p==='全部地點'?p:placeLabel(p),label=escape(rawLabel),characters=[...rawLabel],metroLabel=characters.length===2?characters.map(c=>`<span>${escape(c)}</span>`).join(''):label;const main=`<button type="button" class="place-btn ${p===filters.place?'active':''}" data-place="${escape(p)}" aria-pressed="${p===filters.place}"${metro?` aria-describedby="metro-${metro.id}"`:''}>${metro?`<span class="metro-name"><span class="metro-label ${[...rawLabel].length===2?'spread':''}">${metroLabel}</span><span class="metro-lines" aria-hidden="true">${metro.lines.map(line=>`<span class="metro-line ${line}"></span>`).join('')}</span></span>`:label}</button>`;return metro?`<div class="metro-place">${main}<button type="button" class="metro-info" data-metro-info aria-expanded="${metroTapOpen===p}" aria-describedby="metro-${metro.id}" aria-label="查看${label}捷運時間">i</button><div class="metro-pop" id="metro-${metro.id}" role="tooltip">台北車站 → ${escape(metro.station)}<br>${escape(metro.time)}${metro.walk?`<br>${escape(metro.walk)}`:''}<small>車程不含候車及步行，僅供參考</small></div></div>`:main}
+function renderPlaceList(){return data.places.filter(isWorkPlace).map(placeButton).join('')}
+function renderWeekendPlaceList(){return data.places.filter(p=>placeGroup(p)==='weekend').map((place,index)=>({place,index,minutes:metroForPlace(place)?.minutes??Infinity})).sort((a,b)=>a.minutes-b.minutes||a.index-b.index).map(item=>placeButton(item.place)).join('')}
+document.addEventListener('click',e=>{const info=e.target.closest('[data-metro-info]');const place=e.target.closest('[data-place]');document.querySelectorAll('[data-metro-info][aria-expanded="true"]').forEach(b=>{if(b!==info)b.setAttribute('aria-expanded','false')});if(info){info.setAttribute('aria-expanded',String(info.getAttribute('aria-expanded')!=='true'));metroTapOpen=info.getAttribute('aria-expanded')==='true'?info.parentElement.querySelector('[data-place]').dataset.place:''}else if(place&&matchMedia('(hover: none)').matches){const p=place.dataset.place;metroTapOpen=placeGroup(p)==='weekend'&&metroForPlace(p)?p:''}else metroTapOpen=''});
+function matchesPlace(r,place){return place==='全部地點'||(place===WEEKEND_GROUP?placeGroup(r.place)==='weekend':place===GATHERING_GROUP?placeGroup(r.place)==='gathering':r.place===place)}
+function areaDetails(raw){const lines=String(raw||'').split(/\r?\n/);const i=lines.findIndex(line=>/^[ \t]*區域[ \t]*[：:][ \t]*\S/.test(line));if(i<0)return {area:'',notes:String(raw||'')};const area=lines[i].replace(/^[ \t]*區域[ \t]*[：:][ \t]*/,'').trim();lines.splice(i,1);return {area,notes:lines.join('\n').trim()}}
+function matchingItems(place){return data.restaurants.filter(r=>matchesPlace(r,place)&&(filters.meal==='全部'||(r.meals||[]).includes(filters.meal))&&(!filters.category||r.category===filters.category)&&(!filters.price||priceTier(r.price)?.kind===filters.price)&&(!filters.favorite||r.favorite)&&(!filters.query||[r.name,r.place,r.category,r.price,r.hours,r.address,r.notes].some(v=>String(v||'').toLowerCase().includes(filters.query))))}function render(){ $('totalCount').textContent=data.restaurants.length;$('placeCount').textContent=data.places.length;$('allPlaceList').innerHTML=placeButton('全部地點');$('weekendGroup').setAttribute('aria-pressed',String(filters.place===WEEKEND_GROUP));$('gatheringGroup').setAttribute('aria-pressed',String(filters.place===GATHERING_GROUP));$('gatheringPlaceList').innerHTML=data.places.filter(p=>isGatheringPlace(p)&&placeName(p)!=='中央大學').map(placeButton).join('');$('placeList').innerHTML=renderPlaceList();$('weekendPlaceList').innerHTML=renderWeekendPlaceList();$('fridayPlaceList').innerHTML=data.places.filter(isFridayPlace).map(placeButton).join('');$('mealClock').dataset.selected=filters.meal;document.querySelectorAll('#mealFilters button').forEach(b=>{const selected=b.dataset.meal===filters.meal;b.classList.toggle('active',selected);b.setAttribute('aria-pressed',String(selected))});const cats=[...new Set(data.restaurants.map(r=>r.category).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh-Hant'));$('categoryFilter').innerHTML='<option value="">全部類型</option>'+cats.map(c=>`<option value="${escape(c)}">${escape(c)}</option>`).join('');if(!cats.includes(filters.category))filters.category='';$('categoryFilter').value=filters.category;$('priceFilter').value=filters.price;let items=matchingItems(filters.place);$('resultTitle').textContent=filters.place==='全部地點'?'所有口袋名單':placeLabel(filters.place);$('resultCount').textContent=items.length+' 間店';$('pickLocation').hidden=filters.place==='全部地點';if(!items.length){const empty=data.restaurants.length===0;$('cards').innerHTML=`<div class="empty"><div class="empty-icon" aria-hidden="true">🍚</div><h3>${empty?'你的口袋名單，從這裡開始':'找不到符合的店家'}</h3><p>${empty?'先把熟悉或想去的店記下來，<br>下次就不用煩惱要吃什麼。':'試試切換地點、用餐時段或搜尋其他關鍵字。'}</p>${empty?'<button class="primary newBtn">＋ 新增第一間店</button>':'<button class="secondary" id="clearFilters">清除篩選</button>'}</div>`;return}$('cards').innerHTML=items.map(r=>{const details=areaDetails(r.notes);let url='';try{let u=new URL(r.mapUrl||'');if(['http:','https:'].includes(u.protocol))url=u.href}catch(e){}if(!url)url='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent([r.name,r.address||r.place].join(' '));return `<article class="panel card">${priceRow(r.price)}<div class="card-head"><div><h3>${escape(r.name)}</h3><div class="location">⌖ ${escape(placeLabel(r.place))}${details.area?`・${escape(details.area)}`:''}</div><div class="added-date">加入日期：${/^\d{4}-\d{2}-\d{2}$/.test(r.createdAt||'')?escape(r.createdAt):'未記錄'}</div></div><button class="favorite ${r.favorite?'on':''}" data-fav="${escape(r.id)}" aria-label="${r.favorite?'取消收藏':'加入收藏'}" title="${r.favorite?'取消收藏':'加入收藏'}">${r.favorite?'★':'☆'}</button></div>${closureBadge(r)}<div class="tags">${(r.meals||[]).map(m=>`<span class="tag meal">${escape(m)}</span>`).join('')}${r.category?`<span class="tag">${escape(r.category)}</span>`:''}</div>${r.hours?`<p class="detail">營業資訊：${escape(r.hours)}</p>`:''}${details.notes?`<p class="detail">${escape(details.notes)}</p>`:''}${renderMenuLinks(r)}<div class="rating" role="group" aria-label="個人評價"><span class="rating-label">個人評價</span><button type="button" class="rating-btn apple-rating" data-rate="great" data-rating-id="${escape(r.id)}" aria-pressed="${r.rating==='great'}" aria-label="完整蘋果：好吃" title="完整蘋果：好吃"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.6c-1.5-2-5-2.1-6.5.2-2.1 3.3-.9 8.6 1.4 11.6 1.3 1.8 2.5 2.2 3.6 1.7 1-.5 1.9-.5 2.9 0 1.1.5 2.3.1 3.6-1.7 2.3-3 3.5-8.3 1.4-11.6-1.5-2.3-5-2.2-6.4-.2Z" fill="#c94723"/><path d="M12 6.5c0-1.9.7-3.3 2-4.3" fill="none" stroke="#714831" stroke-width="1.5" stroke-linecap="round"/><path d="M12.7 4.5c.7-1.8 2.5-2.5 4-2.1-.5 1.8-1.8 2.7-4 2.1Z" fill="#568456"/></svg><span class="apple-rating-text">好吃</span></button><button type="button" class="rating-btn apple-rating" data-rate="good" data-rating-id="${escape(r.id)}" aria-pressed="${r.rating==='good'}" aria-label="半個蘋果：普通" title="半個蘋果：普通"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.6c-1.5-2-5-2.1-6.5.2-2.1 3.3-.9 8.6 1.4 11.6 1.3 1.8 2.5 2.2 3.6 1.7 1-.5 1.9-.5 2.9 0 1.1.5 2.3.1 3.6-1.7 2.3-3 3.5-8.3 1.4-11.6-1.5-2.3-5-2.2-6.4-.2Z" fill="#fff0d9" stroke="#c94723" stroke-width="1.4"/><path d="M12 7v12.6" stroke="#e0ae92" stroke-width=".9"/><path d="M10.4 12.3c-.7.6-.7 1.7.2 2.3.5-.8.5-1.6-.2-2.3Zm3.2 0c.7.6.7 1.7-.2 2.3-.5-.8-.5-1.6.2-2.3Z" fill="#77452f"/><path d="M12 6.3c0-1.8.8-3.2 2.1-4.1" fill="none" stroke="#714831" stroke-width="1.5" stroke-linecap="round"/><path d="M12.8 4.5c.7-1.7 2.3-2.4 3.9-2.1-.5 1.7-1.8 2.5-3.9 2.1Z" fill="#568456"/></svg><span class="apple-rating-text">普通</span></button><button type="button" class="rating-btn apple-rating" data-rate="bad" data-rating-id="${escape(r.id)}" aria-pressed="${r.rating==='bad'}" aria-label="蘋果梗：難吃" title="蘋果梗：難吃"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5.8c2-.6 3.3.1 5 .6 1.7-.5 3-1.2 5-.6l-2.1 4.1c-.6 1.3-.6 2.9 0 4.2L17 18.4c-2 .7-3.3-.1-5-.6-1.7.5-3 1.3-5 .6l2.1-4.3c.6-1.3.6-2.9 0-4.2Z" fill="#fff0d9" stroke="#c94723" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 6.2V2.5" fill="none" stroke="#714831" stroke-width="1.5" stroke-linecap="round"/><path d="M10.8 10.4c-.7.6-.7 1.5.1 2 .5-.6.5-1.4-.1-2Zm2.4 0c.7.6.7 1.5-.1 2-.5-.6-.5-1.4.1-2Z" fill="#77452f"/></svg><span class="apple-rating-text">難吃</span></button></div><div class="card-actions"><a href="${escape(url)}" target="_blank" rel="noopener noreferrer">查看地圖</a><span class="spacer"></span><button class="linkbtn" data-edit="${escape(r.id)}">編輯</button><button class="linkbtn muted" data-delete="${escape(r.id)}">刪除</button></div></article>`}).join('')}
+function chooseRestaurant(){
+  const matching=matchingItems(pickPlace);
+  const candidates=matching.length>1?matching.filter(r=>r.id!==lastPickId):matching;
+  const r=candidates[Math.floor(Math.random()*candidates.length)];
+  const name=$('pickName'), meta=$('pickMeta'), map=$('pickMap');
+  $('pickAgain').disabled=!r;
+  if(!r){lastPickId=null;$('pickKicker').textContent=placeLabel(pickPlace);name.textContent='你沒有東西吃 好可憐喔';meta.textContent=data.restaurants.some(item=>matchesPlace(item,pickPlace))?'試試調整時段或其他篩選條件。':'先在這個地點新增喜歡的店家，再來幫你選一個。';map.hidden=true;map.removeAttribute('href');return}
+  lastPickId=r.id;$('pickKicker').textContent='從「'+placeLabel(pickPlace)+'」符合條件的店家中挑選';name.textContent=r.name;
+  meta.textContent=[placeLabel(r.place),(r.meals||[]).join('、'),r.category,r.price].filter(Boolean).join(' · ');
+  let url='';try{const u=new URL(r.mapUrl||'');if(['http:','https:'].includes(u.protocol))url=u.href}catch(e){}
+  map.href=url||'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent([r.name,r.address||r.place].join(' '));map.hidden=false;
+}
+$('pickAgain').addEventListener('click',chooseRestaurant);
+function openForm(id){editId=id||null;const r=data.restaurants.find(x=>x.id===id);$('restaurantForm').reset();stagedMenuImages=menuImages(r).map(x=>({id:x.id,name:x.name,...(x.addedAt?{addedAt:x.addedAt}:{})}));renderStagedMenuImages();$('formError').textContent='';$('dialogTitle').textContent=r?'編輯店家':'新增店家';$('place').innerHTML=data.places.map(p=>`<option value="${escape(p)}">${escape(placeLabel(p))}</option>`).join('');if(r){['name','place','category','price','hours','address','mapUrl','notes'].forEach(k=>$(k).value=r[k]||'');$('menuUrls').value=menuLinks(r).join('\n');document.querySelectorAll('[name=meal]').forEach(c=>c.checked=(r.meals||[]).includes(c.value))}else if(filters.place===WEEKEND_GROUP||filters.place===GATHERING_GROUP){$('place').insertAdjacentHTML('afterbegin','<option value="">請選擇地點</option>');$('place').value=''}else if(filters.place!=='全部地點')$('place').value=filters.place;const mode=r&&['weekly','irregular','none'].includes(r.closedMode)?r.closedMode:'unknown';$('closedMode').value=mode;document.querySelectorAll('[name=closedDay]').forEach(c=>c.checked=mode==='weekly'&&Array.isArray(r?.closedDays)&&r.closedDays.includes(c.value));updateClosureForm();$('restaurantDialog').showModal()}
+document.addEventListener('click',e=>{let b=e.target.closest('button');if(!b)return;if(b.classList.contains('newBtn'))openForm();if(b.dataset.menuImage)openMenuImage(b.dataset.menuImage);if(b.id==='pickLocation'&&filters.place!=='全部地點'){pickPlace=filters.place;lastPickId=null;chooseRestaurant();$('pickDialog').showModal()}if(b.dataset.close&&!(uploadingMenus&&b.dataset.close==='restaurantDialog'))$(b.dataset.close).close();if(b.dataset.place){filters.place=b.dataset.place;render()}if(b.dataset.meal){filters.meal=b.dataset.meal;render()}if(b.dataset.fav){let r=data.restaurants.find(x=>x.id===b.dataset.fav);if(r){r.favorite=!r.favorite;save();render()}}if(b.dataset.rate&&b.dataset.ratingId){let r=data.restaurants.find(x=>x.id===b.dataset.ratingId);if(r){r.rating=r.rating===b.dataset.rate?'':b.dataset.rate;save();render()}}if(b.dataset.edit)openForm(b.dataset.edit);if(b.dataset.delete){let r=data.restaurants.find(x=>x.id===b.dataset.delete);if(r&&confirm(`確定刪除「${r.name}」？`)){data.restaurants=data.restaurants.filter(x=>x.id!==r.id);save();render()}}if(b.id==='clearFilters'){filters={place:'全部地點',meal:'全部',category:'',query:'',favorite:false,price:''};$('search').value='';$('favoriteFilter').checked=false;render()}});
+$('search').addEventListener('input',e=>{filters.query=e.target.value.trim().toLowerCase();render()});$('categoryFilter').addEventListener('change',e=>{filters.category=e.target.value;render()});$('priceFilter').addEventListener('change',e=>{filters.price=e.target.value;render()});$('favoriteFilter').addEventListener('change',e=>{filters.favorite=e.target.checked;render()});$('restaurantForm').addEventListener('submit',async e=>{e.preventDefault();if(uploadingMenus)return;const meals=[...document.querySelectorAll('[name=meal]:checked')].map(x=>x.value);if(!meals.length){$('formError').textContent='請至少選擇一個用餐時段。';return}const name=$('name').value.trim();if(!name){$('formError').textContent='請填寫店家名稱。';return}const mapUrl=$('mapUrl').value.trim();if(mapUrl){try{if(!['http:','https:'].includes(new URL(mapUrl).protocol))throw 0}catch(err){$('formError').textContent='請輸入以 http 或 https 開頭的地圖連結。';return}}const menuUrls=$('menuUrls').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if(menuUrls.length>10||menuUrls.some(v=>{try{const url=new URL(v);return v.length>2048||url.href.length>2048||!['http:','https:'].includes(url.protocol)}catch(err){return true}})){$('formError').textContent='請輸入有效的 http 或 https 菜單連結，每行一個，最多 10 個。';return}const closedMode=$('closedMode').value;const closedDays=closedMode==='weekly'?[...document.querySelectorAll('[name=closedDay]:checked')].map(x=>x.value):[];if(closedMode==='weekly'&&!closedDays.length){$('formError').textContent='請選擇每週公休日，或將公休日設為未設定。';return}if(stagedMenuImages.some(x=>x.file)){uploadingMenus=true;$('restaurantForm').inert=true;$('formError').textContent='正在上傳菜單照片…';try{for(let i=0;i<stagedMenuImages.length;i++){const image=stagedMenuImages[i];if(!image.file)continue;const response=await window.mealMenuFetch('/api/menu-images',{method:'POST',headers:{'Content-Type':image.file.type},body:image.file});if(!response.ok)throw Error();const result=await response.json();if(typeof result.id!=='string'||!/^[0-9a-f-]{36}$/i.test(result.id))throw Error();stagedMenuImages[i]={id:result.id,name:image.name,addedAt:image.addedAt}}}catch(err){$('formError').textContent='菜單照片上傳失敗，請檢查網路後重試。';return}finally{uploadingMenus=false;$('restaurantForm').inert=false}renderStagedMenuImages()}const old=data.restaurants.find(x=>x.id===editId);const oldLinks=menuLinks(old||{});const menuLinkDates=Object.fromEntries(menuUrls.map(raw=>new URL(raw).href).map(url=>[url,oldLinks.includes(url)?old?.menuLinkDates?.[url]:todayDate()]).filter(([,date])=>date));const r={...old,id:editId||uid(),createdAt:old?old.createdAt:todayDate(),name,place:$('place').value,category:$('category').value.trim(),meals,price:$('price').value.trim(),hours:$('hours').value.trim(),closedMode,closedDays,address:$('address').value.trim(),mapUrl,menuUrls,menuLinkDates,menuImages:stagedMenuImages.map(({id,name,addedAt})=>({id,name,...(addedAt?{addedAt}:{})})),notes:$('notes').value.trim(),favorite:!!old?.favorite,rating:old?.rating||''};const oldIndex=old?data.restaurants.indexOf(old):-1;if(old)data.restaurants[oldIndex]=r;else data.restaurants.unshift(r);if(save()){$('restaurantDialog').close();render()}else if(old)data.restaurants[oldIndex]=old;else data.restaurants.shift()});
+$('addPlace').addEventListener('click',()=>{$('placeForm').reset();$('placeError').textContent='';$('placeDialog').showModal()});$('placeForm').addEventListener('submit',e=>{e.preventDefault();const name=placeName($('placeName').value.trim());const prefix={work:'工作地點・',weekend:'常用地點・',friday:'週五吃飯・',gathering:'聚餐寶地・'}[$('placeGroup').value]||'常用地點・';const p=prefix+name;if(!name||name==='全部地點'||data.places.includes(p)||data.places.some(x=>placeName(x)===name&&placeGroup(x)===placeGroup(p))){$('placeError').textContent='請輸入尚未使用的地點名稱。';return}data.places.push(p);if(save()){$('placeDialog').close();render()}});$('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({version:1,...data},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='餐飲口袋名單.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});$('importBtn').addEventListener('click',()=>$('importFile').click());$('importFile').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const v=JSON.parse(await file.text());if(!Array.isArray(v.places)||!v.places.length||!v.places.every(p=>typeof p==='string'&&p.trim()&&p!=='全部地點')||!Array.isArray(v.restaurants)||!v.restaurants.every(r=>r&&typeof r.id==='string'&&typeof r.name==='string'&&typeof r.place==='string'&&v.places.includes(r.place)&&Array.isArray(r.meals)&&r.meals.every(m=>['早餐','午餐','晚餐','宵夜'].includes(m))))throw Error();if(confirm(`將以備份中的 ${v.restaurants.length} 間店取代目前名單，確定匯入？`)){data={places:v.places,restaurants:v.restaurants};filters={place:'全部地點',meal:'全部',category:'',query:'',favorite:false,price:''};$('search').value='';$('favoriteFilter').checked=false;if(save())render()}}catch(err){alert('無法讀取此備份，請選擇由此網頁匯出的 JSON 檔案。')}e.target.value=''});render();window.mealSync.watch(remote=>{data=remote;render()})})();
+</script></body></html>
