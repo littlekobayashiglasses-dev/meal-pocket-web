@@ -170,7 +170,7 @@
       if (value && typeof value === 'object') return Object.fromEntries(Object.keys(value).sort().map(key => [key, canonical(value[key])]));
       return value;
     };
-    const fields = {name:'店名',place:'地點',category:'類型',meals:'時段',price:'價格',hours:'營業時間',address:'地址',mapUrl:'地圖連結',notes:'備註',foodOpinion:'食物意見',rating:'評價',favorite:'收藏',createdAt:'加入日期',closedMode:'公休日設定',closedDays:'公休日',menuUrls:'菜單連結',menuLinkDates:'菜單日期',menuImages:'菜單照片'};
+    const fields = {name:'店名',place:'地點',category:'類型',meals:'時段',price:'價格',hours:'營業時間',address:'地址',mapUrl:'地圖連結',notes:'備註',foodOpinion:'食物意見',rating:'評價',favorite:'收藏',createdAt:'加入日期',closedMode:'公休日設定',closedDays:'公休日',temporaryClosed:'暫停營業',menuUrls:'菜單連結',menuLinkDates:'菜單日期',menuImages:'菜單照片'};
     const valid = item => item && typeof item === 'object' && typeof item.id === 'string' && item.id.length > 0;
     const local = backup.restaurants.filter(valid), remote = cloudData.restaurants.filter(valid);
     const localById = new Map(local.map(item => [item.id, item]));
