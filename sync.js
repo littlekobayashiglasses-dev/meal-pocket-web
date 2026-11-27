@@ -14,12 +14,18 @@
   // An explicit viewer link never inherits edit access from this browser.
   const shareKey = explicitLink ? (fragment.get('share') || '') : rememberedKey;
   const editKey = explicitLink ? (fragment.get('edit') || '') : (rememberedOwner?.share === shareKey ? rememberedOwner.edit : '') || '';
-  let canEdit = false;
+  let canEdit = false, accessRole = 'viewer', accessActor = null, onRemoteUpdate = null, lastAccessNotice = '';
+  const effectiveAccess = () => ({role:blocked ? 'viewer' : accessRole, actor:blocked ? null : accessActor, canEdit:canEdit && !blocked});
+  function publishAccess() {
+    const access=effectiveAccess(); document.documentElement.dataset.listRole=access.role;
+    const signature=JSON.stringify(access);
+    if(signature!==lastAccessNotice) { lastAccessNotice=signature; if(typeof window.dispatchEvent==='function' && typeof Event==='function') window.dispatchEvent(new Event('meal-access-change')); }
+  }
   window.addEventListener('hashchange', () => {
     const next = new URLSearchParams(location.hash.slice(1));
     if ((next.get('share') || '') !== (fragment.get('share') || '') || (next.get('edit') || '') !== (fragment.get('edit') || '') || next.has('edit') !== fragment.has('edit')) location.reload();
   });
-  let revision = 0, cloudData = null, pendingKey = '', migratedKey = '';
+  let revision = 0, cloudData = null, pendingKey = '', legacyPendingKey = '', migratedKey = '';
   let pending = null, running = false, blocked = false, counter = 0, copyNotice = '';
   const copy = value => JSON.parse(JSON.stringify(value));
   const read = key => { try { return JSON.parse(localStorage.getItem(key)); } catch { return null; } };
@@ -31,7 +37,7 @@
   bar.innerHTML = '<span class="cloud-dot" aria-hidden="true"></span><span class="cloud-message">正在連接共用清單…</span><span class="cloud-actions"></span>';
   const style = document.createElement('style');
   style.textContent = '.cloud-status{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 20px;padding:12px 15px;border:1px solid #e8b8a7;border-radius:12px;background:#fff3ef;color:#652918;font-size:14px;line-height:1.55}.cloud-dot{width:9px;height:9px;border-radius:50%;background:#c94723;flex:none}.cloud-message{flex:1;min-width:180px}.cloud-actions{display:flex;gap:8px;flex-wrap:wrap}.cloud-actions button,.cloud-actions a{border:1px solid #c94723;border-radius:8px;background:#fff;color:#9c331b;padding:6px 10px;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}.cloud-actions input{min-width:0;max-width:100%;flex:1 1 220px;border:1px solid #c94723;border-radius:8px;background:#fff;color:#222;padding:7px 10px;font:inherit}.cloud-link-error{flex-basis:100%;color:#8a2410}.cloud-status[data-error="true"]{border-color:#9c331b;background:#fff0eb;color:#652918}.cloud-status[data-error="true"] .cloud-dot{background:#9c331b}';
-  style.textContent += 'html[data-list-role="viewer"] .newBtn,html[data-list-role="viewer"] #addPlace,html[data-list-role="viewer"] #importBtn,html[data-list-role="viewer"] [data-edit],html[data-list-role="viewer"] [data-delete]{display:none!important}html[data-list-role="viewer"] .favorite:disabled,html[data-list-role="viewer"] .rating-btn:disabled{cursor:default;opacity:.8}';
+  style.textContent += 'html[data-list-role="viewer"] .newBtn,html[data-list-role="viewer"] #addPlace,html[data-list-role="viewer"] #importBtn,html[data-list-role="viewer"] [data-edit],html[data-list-role="viewer"] [data-delete],html[data-list-role="collaborator"] #addPlace,html[data-list-role="collaborator"] #importBtn,html[data-list-role="collaborator"] [data-delete]{display:none!important}html[data-list-role="viewer"] .favorite:disabled,html[data-list-role="viewer"] .rating-btn:disabled{cursor:default;opacity:.8}';
   document.head.appendChild(style);
   function applyPermissions() {
     if (canEdit && !blocked) return;
@@ -43,10 +49,11 @@
   const message = bar.querySelector('.cloud-message'), actions = bar.querySelector('.cloud-actions');
   function oldPendingBackups() {
     const backups = [];
+    if (accessRole !== 'owner') return backups;
     try {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (!key || !(key.startsWith('meal-pocket-cloud-pending:') || (pendingKey && key.startsWith(pendingKey + '-backup:')))) continue;
+        if (!key || !(key.startsWith('meal-pocket-cloud-pending:') || (pendingKey && key.startsWith(pendingKey + '-backup:')) || (legacyPendingKey && key.startsWith(legacyPendingKey + '-backup:')))) continue;
         const data = read(key);
         if (isList(data)) backups.push(data);
       }
@@ -60,7 +67,7 @@
       label: '下載舊版未同步備份' + (oldBackups.length > 1 ? ' ' + (index + 1) : ''),
       action: () => download(data, '舊版餐飲備份' + (oldBackups.length > 1 ? '-' + (index + 1) : '') + '.json')
     }));
-    const recovered = pendingKey ? read(pendingKey + '-last-recovered') : null;
+    const recovered = (pendingKey ? read(pendingKey + '-last-recovered') : null) || (accessRole==='owner' && legacyPendingKey ? read(legacyPendingKey + '-last-recovered') : null);
     const recoveredButtons = isList(recovered) ? [
       {label:'下載上次合併前備份', action: () => download(recovered, '合併前餐飲名單.json')},
       ...(isList(cloudData) ? [{label:'查看上次合併前備份差異', action: () => showBackupDifferences(recovered)}] : [])
@@ -73,8 +80,9 @@
       actions.append(el);
     }
   }
-  function showLinkEntry(messageText) {
+  function showLinkEntry(messageText, recoverable = null) {
     const buttons = [];
+    if (isList(recoverable)) buttons.push({label:'下載未同步備份',action:()=>download(recoverable,'未同步的餐飲名單.json')});
     if (/^[A-Za-z0-9_-]{32,128}$/.test(rememberedKey) && (rememberedKey !== shareKey || explicitEdit)) {
       buttons.push({label:'使用此瀏覽器已記住的連結', action: () => {
         location.hash = 'share=' + encodeURIComponent(rememberedKey) + (rememberedOwner?.share === rememberedKey && /^[A-Za-z0-9_-]{32,128}$/.test(rememberedOwner.edit || '') ? '&edit=' + encodeURIComponent(rememberedOwner.edit) : '');
@@ -128,8 +136,11 @@
     if (!response.ok) throw new Error('連線失敗');
     const result = await response.json();
     if (!isList(result.data) || !Number.isSafeInteger(result.revision) || typeof result.initialized !== 'boolean' || typeof result.canEdit !== 'boolean') throw new Error('清單資料無法讀取');
-    if ((explicitEdit || editKey) && !result.canEdit) { blocked = true; lockUI(true); showLinkEntry('編輯連結無效或不完整，請使用正確的私人編輯連結。'); return null; }
+    if ((explicitEdit || editKey) && !result.canEdit) { blocked = true; lockUI(true); publishAccess(); const ownPending=pendingKey?read(pendingKey):null; showLinkEntry('編輯連結無效、已撤銷或不完整；未同步資料可下載備份。',ownPending); return null; }
     canEdit = result.canEdit;
+    const role = ['owner','collaborator','viewer'].includes(result.role) ? result.role : (canEdit ? 'owner' : 'viewer');
+    if ((role === 'viewer') === canEdit || (role === 'collaborator' && (!result.actor || typeof result.actor.id !== 'string'))) throw new Error('編輯權限無法讀取');
+    accessRole=role; accessActor=result.actor || (role==='owner' ? {id:'owner',name:'本人',icon:'crane'} : null);
     return result;
   }
   async function copyLink() {
@@ -140,14 +151,14 @@
   }
   function hasLegacy() { try { return hasOldInfo(read(oldKey)) && !localStorage.getItem(migratedKey); } catch { return false; } }
   function readyStatus() {
-    if (pending && canEdit) { showPending(); return; }
+    if (pending && canEdit) { if(running) { display('正在儲存至共用清單…'); return; } blocked=true; showPending(); return; }
     lockUI(false);
-    document.documentElement.dataset.listRole = canEdit ? 'editor' : 'viewer';
+    publishAccess();
     applyPermissions();
     const buttons = [{label:'複製唯讀連結', action:copyLink}];
     if (!canEdit && pending) buttons.push({label:'下載未同步備份', action: () => download(pending, '未同步的餐飲名單.json')});
-    if (canEdit && hasLegacy()) buttons.push({label:'匯入此裝置舊清單', action: () => importLocal(read(oldKey), 'legacy')});
-    display(copyNotice || (canEdit ? '編輯模式：您可以管理店家；分享唯讀連結讓其他人查看。' : '查看模式：可以搜尋及查看店家，只有持有私人編輯連結的人可以修改。'), false, buttons);
+    if (canEdit && accessRole==='owner' && hasLegacy()) buttons.push({label:'匯入此裝置舊清單', action: () => importLocal(read(oldKey), 'legacy')});
+    display(copyNotice || (accessRole==='owner' ? '管理模式：您可以管理所有店家和協作者。' : accessRole==='collaborator' ? `協作者：${accessActor.name}，可以新增及修改自己新增的店家。` : '查看模式：可以搜尋及查看店家，只有持有私人編輯連結的人可以修改。'), false, buttons);
   }
   // This comparison is intentionally read-only: it cannot infer which version
   // the user intended, and neither the current list nor the backup is modified.
@@ -170,7 +181,7 @@
       if (value && typeof value === 'object') return Object.fromEntries(Object.keys(value).sort().map(key => [key, canonical(value[key])]));
       return value;
     };
-    const fields = {name:'店名',place:'地點',category:'類型',contributorName:'資訊提供者',contributorIcon:'提供者圖示',meals:'時段',price:'價格',hours:'營業時間',address:'地址',mapUrl:'地圖連結',notes:'備註',foodOpinion:'食物意見',rating:'評價',favorite:'收藏',createdAt:'加入日期',closedMode:'公休日設定',closedDays:'公休日',temporaryClosed:'暫停營業',menuUrls:'菜單連結',menuLinkDates:'菜單日期',menuImages:'菜單照片'};
+    const fields = {name:'店名',place:'地點',category:'類型',contributorName:'資訊提供者',contributorIcon:'提供者圖示',createdById:'新增者識別',createdBy:'新增者',updatedBy:'最後修改者',updatedAt:'修改時間',meals:'時段',price:'價格',hours:'營業時間',address:'地址',mapUrl:'地圖連結',notes:'備註',foodOpinion:'食物意見',rating:'評價',favorite:'收藏',createdAt:'加入日期',closedMode:'公休日設定',closedDays:'公休日',temporaryClosed:'暫停營業',menuUrls:'菜單連結',menuLinkDates:'菜單日期',menuImages:'菜單照片'};
     const valid = item => item && typeof item === 'object' && typeof item.id === 'string' && item.id.length > 0;
     const local = backup.restaurants.filter(valid), remote = cloudData.restaurants.filter(valid);
     const localById = new Map(local.map(item => [item.id, item]));
@@ -219,12 +230,13 @@
     dialog.showModal();
   }
   function showPending(problem = '') {
+    blocked=true;
     lockUI(false);
-    document.documentElement.dataset.listRole = 'viewer';
+    publishAccess();
     applyPermissions();
     display(problem || '這個裝置有尚未同步的變更，暫時以唯讀方式瀏覽。可下載備份、合併新增的店家，或保存備份後使用共用清單繼續編輯。這兩種方式都不會自動套用同一店家的未同步編輯和刪除，備份會保留在此裝置。', true, [
       {label:'下載未同步備份', action: () => download(pending, '未同步的餐飲名單.json')},
-      {label:'合併至共用清單', action: () => importLocal(pending, 'pending')},
+      ...(accessRole==='owner' ? [{label:'合併至共用清單', action: () => importLocal(pending, 'pending')}] : []),
       {label:'使用共用清單繼續編輯', action:archivePendingAndResume}
     ]);
   }
@@ -252,7 +264,7 @@
     }
   }
   async function importLocal(local, type) {
-    if (!canEdit) return;
+    if (!canEdit || accessRole!=='owner') return;
     if (!isList(local)) { display('無法讀取裝置資料，請檢查備份。', true); return; }
     if (!confirm('將新增此裝置的地點和店家。相同店家保留共用清單版本，此裝置的編輯、評價與刪除不會套用。合併後仍可下載合併前備份。確定繼續嗎？')) return;
     try {
@@ -289,11 +301,18 @@
       try {
         const response = await fetch(apiOrigin + '/api/meal-list', {method:'PUT', credentials:'omit', headers:authHeaders({'Content-Type':'application/json'}), body:JSON.stringify({revision, data:snapshot})});
         if (response.status === 409) { blocked = true; showPending(); break; }
-        if (response.status === 401 || response.status === 403) { blocked = true; lockUI(true); display('共用連結無效；未同步的變更保留在此瀏覽器。', true, [{label:'下載未同步備份',action:()=>download(pending,'未同步的餐飲名單.json')}]); break; }
+        if (response.status === 401 || response.status === 403) { blocked = true; lockUI(true); publishAccess(); display('沒有權限儲存這項變更，或編輯連結已失效；未同步資料保留在此瀏覽器。', true, [{label:'下載未同步備份',action:()=>download(pending,'未同步的餐飲名單.json')}]); break; }
         if (!response.ok) throw new Error('儲存失敗');
-        revision = (await response.json()).revision;
-        cloudData = snapshot;
-        if (seq === counter) { pending = null; localStorage.removeItem(pendingKey); readyStatus(); }
+        const result=await response.json();
+        revision = result.revision;
+        cloudData = isList(result.data) ? result.data : snapshot;
+        if (seq === counter) {
+          pending = null; localStorage.removeItem(pendingKey);
+          let displayed=true;
+          try { if(onRemoteUpdate) onRemoteUpdate(copy(cloudData)); } catch { displayed=false; }
+          if(displayed) readyStatus(); else display('已儲存，但畫面更新失敗；請重新整理查看。',true);
+        }
+        else { mergeServerAttribution(pending,cloudData); localStorage.setItem(pendingKey,JSON.stringify(pending)); }
       } catch {
         blocked = true; lockUI(true);
         display('暫時無法連線；變更保留在此瀏覽器，請確認網路後重試。', true, [
@@ -304,7 +323,31 @@
     }
     running = false;
   }
+  // The server owns creator/update metadata. Merge only those fields into a
+  // newer unsent snapshot; never overwrite user edits made while PUT ran.
+  function mergeServerAttribution(target, canonical) {
+    if(!isList(target)||!isList(canonical))return;
+    const known=new Map(canonical.restaurants.map(r=>[r.id,r]));
+    for(const item of target.restaurants) { const server=known.get(item.id); if(!server)continue; for(const key of ['createdById','createdBy','updatedBy','updatedAt']) { if(server[key] == null) delete item[key]; else item[key]=server[key]; } }
+  }
+  async function editorsRequest(method, path, body) {
+    if(accessRole!=='owner'||!canEdit||blocked) throw new Error('只有管理者可以管理協作者。');
+    const response=await fetch(apiOrigin + path,{method,credentials:'omit',headers:authHeaders(body ? {'Content-Type':'application/json'} : {}),...(body ? {body:JSON.stringify(body)} : {})});
+    let value={}; try { value=await response.json(); } catch { /* Surface a generic failure. */ }
+    if(!response.ok)throw new Error(value.error||'無法管理協作者。');
+    return value;
+  }
   window.mealSync = {
+    getAccess() { return effectiveAccess(); },
+    canEditRestaurant(r) { return !!r && canEdit && !blocked && (accessRole==='owner' || (accessRole==='collaborator' && r.createdById===accessActor?.id)); },
+    async listEditors() { return editorsRequest('GET','/api/meal-editors'); },
+    async createEditor(name,icon) {
+      const value=await editorsRequest('POST','/api/meal-editors',{name,icon});
+      if(!value.editor || !/^[A-Za-z0-9_-]{32,128}$/.test(value.token||''))throw new Error('協作者連結無法建立。');
+      const url=location.origin+location.pathname+'#share='+encodeURIComponent(shareKey)+'&edit='+encodeURIComponent(value.token);
+      return {editor:value.editor,url};
+    },
+    async revokeEditor(id) { return editorsRequest('DELETE','/api/meal-editors?id='+encodeURIComponent(id)); },
     async boot() {
       if (!/^[A-Za-z0-9_-]{32,128}$/.test(shareKey)) {
         showLinkEntry('請貼上分享者提供的完整共用連結；這份清單不需登入。'); return pause();
@@ -313,7 +356,9 @@
       try {
         const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(shareKey));
         const id = Array.from(new Uint8Array(digest), v => v.toString(16).padStart(2,'0')).join('');
-        pendingKey = 'meal-pocket-shared-pending:' + id; migratedKey = 'meal-pocket-shared-legacy:' + id;
+        legacyPendingKey = 'meal-pocket-shared-pending:' + id; migratedKey = 'meal-pocket-shared-legacy:' + id;
+        const keyHash=editKey ? Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(editKey))),v=>v.toString(16).padStart(2,'0')).join('') : '';
+        pendingKey=legacyPendingKey+(keyHash ? ':key:'+keyHash : ':viewer');
         const result = await fetchCloud();
         if (!result) return pause();
         if (!result.initialized) {
@@ -329,6 +374,9 @@
         }
         revision = result.revision; cloudData = result.data;
         pending = read(pendingKey);
+        // Old unsynchronized snapshots belong to the previous owner-only era.
+        // Never expose or auto-merge them into a collaborator's session.
+        if (!isList(pending) && accessRole === 'owner' && isList(read(legacyPendingKey))) { pendingKey=legacyPendingKey; pending=read(pendingKey); }
         if (!isList(pending)) pending = null;
         blocked = !!pending && canEdit;
         readyStatus();
@@ -339,6 +387,7 @@
       }
     },
     watch(onUpdate) {
+      onRemoteUpdate=onUpdate;
       const check = async () => {
         if (document.hidden || (pending && canEdit) || blocked || document.querySelector('dialog[open]')) return;
         try {
@@ -353,7 +402,7 @@
     },
     save(data) {
       if (!canEdit || blocked) { alert('目前為查看模式，無法修改清單。'); return false; }
-      try { pending = copy(data); localStorage.setItem(pendingKey, JSON.stringify(pending)); counter++; }
+      try { mergeServerAttribution(data,cloudData); pending = copy(data); localStorage.setItem(pendingKey, JSON.stringify(pending)); counter++; }
       catch { alert('無法在此瀏覽器保留未同步資料，請確認儲存空間。'); return false; }
       if (blocked) showPending(); else push();
       return true;
