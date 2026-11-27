@@ -337,14 +337,32 @@
     if(!response.ok)throw new Error(value.error||'無法管理協作者。');
     return value;
   }
+  function editorLink(value) {
+    if(!/^[A-Za-z0-9_-]{32,128}$/.test(value.token||''))throw new Error('協作者連結無法取得。');
+    return location.origin+location.pathname+'#share='+encodeURIComponent(shareKey)+'&edit='+encodeURIComponent(value.token);
+  }
   window.mealSync = {
     getAccess() { return effectiveAccess(); },
     canEditRestaurant(r) { return !!r && canEdit && !blocked && (accessRole==='owner' || (accessRole==='collaborator' && r.createdById===accessActor?.id)); },
     async listEditors() { return editorsRequest('GET','/api/meal-editors'); },
+    async getEditorLink(id) {
+      const value=await editorsRequest('GET','/api/meal-editors?id='+encodeURIComponent(id));
+      return {url:editorLink(value)};
+    },
+    async reissueEditor(id) {
+      const value=await editorsRequest('PATCH','/api/meal-editors?id='+encodeURIComponent(id));
+      if(!value.editor)throw new Error('協作者連結無法換發。');
+      return {editor:value.editor,url:editorLink(value)};
+    },
+    async registerEditorToken(id,token) {
+      const value=await editorsRequest('PATCH','/api/meal-editors?id='+encodeURIComponent(id),{mode:'adopt',token});
+      if(!value.editor)throw new Error('協作者連結無法登記。');
+      return {editor:value.editor,url:editorLink(value)};
+    },
     async createEditor(name,icon) {
       const value=await editorsRequest('POST','/api/meal-editors',{name,icon});
-      if(!value.editor || !/^[A-Za-z0-9_-]{32,128}$/.test(value.token||''))throw new Error('協作者連結無法建立。');
-      const url=location.origin+location.pathname+'#share='+encodeURIComponent(shareKey)+'&edit='+encodeURIComponent(value.token);
+      if(!value.editor)throw new Error('協作者連結無法建立。');
+      const url=editorLink(value);
       return {editor:value.editor,url};
     },
     async revokeEditor(id) { return editorsRequest('DELETE','/api/meal-editors?id='+encodeURIComponent(id)); },
